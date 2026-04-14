@@ -37,6 +37,14 @@
 #include "userconfig.h"
 #include <stdlib.h>
 
+#ifdef USE_STM
+#include "stm32h7xx_it.h"
+#endif
+
+#ifdef USE_ARDUINO
+#include "Arduino.h"
+#endif
+
 // Error Conditions.
 typedef enum {
   NoError = 0,    // No Error
@@ -63,7 +71,7 @@ typedef enum { TRANSFER_WAIT, TRANSFER_COMPLETE, TRANSFER_ERROR } TransferState;
 
 extern volatile uint16_t command_sequence_MOSI[CONVERT_COMMANDS_PER_SEQUENCE +
                                                AUX_COMMANDS_PER_SEQUENCE];
-extern volatile uint16_t command_sequence_MISO[CONVERT_COMMANDS_PER_SEQUENCE +
+extern volatile uint32_t command_sequence_MISO[CONVERT_COMMANDS_PER_SEQUENCE +
                                                AUX_COMMANDS_PER_SEQUENCE];
 extern volatile uint16_t next_aux_commands[AUX_COMMANDS_PER_SEQUENCE];
 
@@ -92,6 +100,9 @@ void sample_processing_routine(void);
 void initialize_spi_with_dma(void);
 void end_spi_with_dma(void);
 
+void initialize_ddr_sclk_timers(void);
+void end_ddr_sclk_timers(void);
+
 void write_initial_reg_values(RHDConfigParameters *const p);
 double calculate_sample_rate(void);
 void create_convert_sequence(const uint8_t *const channel_numbers_to_convert);
@@ -111,13 +122,18 @@ int create_command_list_zcheck_DAC(const RHDConfigParameters *const p,
                                    uint16_t *const command_list,
                                    double frequency, double amplitude);
 void send_spi_command(uint16_t tx_data);
+void extract_ddr_words(uint32_t merged_word, uint16_t *const word_A,
+                       uint16_t *const word_B);
 
 void copy_next_aux_commands_to_MOSI(void);
 
 #ifdef USE_HAL
 extern UART_HandleTypeDef USART;
-extern SPI_HandleTypeDef SPI;
+extern SPI_HandleTypeDef TRANSMIT_SPI;
+extern SPI_HandleTypeDef RECEIVE_SPI;
 extern TIM_HandleTypeDef INTERRUPT_TIM;
+extern TIM_HandleTypeDef CS_DELAY_TIM;
+extern TIM_HandleTypeDef RECEIVE_SCLK_TIM;
 #else
 void begin_spi_rx(uint32_t mem_increment, uint32_t mem_address,
                   uint32_t num_words);
@@ -128,10 +144,12 @@ void end_spi_tx(void);
 void dma_interrupt_routine_rx(void);
 void dma_interrupt_routine_tx(void);
 void dma_interrupt_routine_usart_tx(void);
-void spi_interrupt_routine(void);
+void spi_interrupt_routine_rx(void);
+void spi_interrupt_routine_tx(void);
 void uart_interrupt_routine(void);
 #endif
 
+#ifdef USE_STM
 // Write specified pin on specified port either high (1) or low (0).
 static inline void write_pin(GPIO_TypeDef *const gpio_port, uint32_t gpio_pin,
                              bool level) {
@@ -142,6 +160,14 @@ static inline void write_pin(GPIO_TypeDef *const gpio_port, uint32_t gpio_pin,
         : LL_GPIO_ResetOutputPin(gpio_port, gpio_pin);
 #endif
 }
+#elif defined(USE_ARDUINO)
+// Write specified pin on specified port either high (1) or low (0).
+static inline void write_pin(uint32_t gpio_pin, bool level) {
+  digitalWrite(gpio_pin, level);
+}
+#else
+#warning "no valid framework selected! No def for write_pin()!"
+#endif
 
 // Load WRITE command to specified aux slot position in MOSI command sequence
 // list.
@@ -163,7 +189,7 @@ static inline void allocate_sample_memory(void) {
   per_channel_sample_memory_capacity =
       calculate_sample_rate() * NUMBER_OF_SECONDS_TO_ACQUIRE;
   uint32_t total_sample_memory_capacity =
-      NUM_SAMPLED_CHANNELS * per_channel_sample_memory_capacity;
+      NUM_SAMPLED_CHANNELS * 2 * per_channel_sample_memory_capacity;
   sample_memory =
       (uint16_t *)malloc(total_sample_memory_capacity * sizeof(uint16_t));
   if (sample_memory == NULL) {

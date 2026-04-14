@@ -508,15 +508,19 @@ void set_default_rhd_settings(RHDConfigParameters *p) {
   set_upper_bandwidth(p, 7500.0);
   set_lower_bandwidth(p, 1.0);
 
-  // Register 14-17: Individual Amplifier Power
+  // Register 14-21: Individual Amplifier Power
   // R[14]D[7:0]: apwr[7:0]
   // R[15]D[7:0]: apwr[15:8]
   // R[16]D[7:0]: apwr[23:16]
   // R[17]D[7:0]: apwr[31:0]
+  // R[18]D[7:0] = apwr[39:32]
+  // R[19]D[7:0] = apwr[47:40]
+  // R[20]D[7:0] = apwr[55:48]
+  // R[21]D[7:0] = apwr[63:56]
   power_up_all_amps(p);
 }
 
-// Return the value of a selected RAM register (0-17) on the RHD2000 chip,
+// Return the value of a selected RAM register (0-21) on the RHD2164 chip,
 // based on the current register variables in RHDConfigParameters.
 uint16_t get_register_value(const RHDConfigParameters *const p, int reg) {
   int regout;
@@ -611,6 +615,34 @@ uint16_t get_register_value(const RHDConfigParameters *const p, int reg) {
              (p->amp_pwr[29] << 5) + (p->amp_pwr[28] << 4) +
              (p->amp_pwr[27] << 3) + (p->amp_pwr[26] << 2) +
              (p->amp_pwr[25] << 1) + p->amp_pwr[24];
+    break;
+
+  case 18:
+    regout = (p->amp_pwr[39] << 7) + (p->amp_pwr[38] << 6) +
+             (p->amp_pwr[37] << 5) + (p->amp_pwr[36] << 4) +
+             (p->amp_pwr[35] << 3) + (p->amp_pwr[34] << 2) +
+             (p->amp_pwr[33] << 1) + p->amp_pwr[32];
+    break;
+
+  case 19:
+    regout = (p->amp_pwr[47] << 7) + (p->amp_pwr[46] << 6) +
+             (p->amp_pwr[45] << 5) + (p->amp_pwr[44] << 4) +
+             (p->amp_pwr[43] << 3) + (p->amp_pwr[42] << 2) +
+             (p->amp_pwr[41] << 1) + p->amp_pwr[40];
+    break;
+
+  case 20:
+    regout = (p->amp_pwr[55] << 7) + (p->amp_pwr[54] << 6) +
+             (p->amp_pwr[53] << 5) + (p->amp_pwr[52] << 4) +
+             (p->amp_pwr[51] << 3) + (p->amp_pwr[50] << 2) +
+             (p->amp_pwr[49] << 1) + p->amp_pwr[48];
+    break;
+
+  case 21:
+    regout = (p->amp_pwr[63] << 7) + (p->amp_pwr[62] << 6) +
+             (p->amp_pwr[61] << 5) + (p->amp_pwr[60] << 4) +
+             (p->amp_pwr[59] << 3) + (p->amp_pwr[58] << 2) +
+             (p->amp_pwr[57] << 1) + p->amp_pwr[56];
     break;
 
   default:

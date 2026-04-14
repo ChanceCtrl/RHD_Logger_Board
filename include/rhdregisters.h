@@ -91,10 +91,10 @@ typedef struct rhdconfigparameters {
   uint8_t rL_DAC1;
   uint8_t rL_DAC2;
   uint8_t rL_DAC3;
-  bool amp_pwr[32];
+  bool amp_pwr[64];
 } RHDConfigParameters;
 
-#define MAX_NUM_CHANNELS_PER_CHIP 32
+#define MAX_NUM_CHANNELS_PER_CHIP 64
 
 void set_zcheck_scale(RHDConfigParameters *const p, ZcheckCs scale);
 void set_zcheck_polarity(RHDConfigParameters *const p, ZcheckPolarity polarity);
