@@ -1,37 +1,44 @@
-/*
-  Intan Technologies RHD STM32 Firmware Framework
-  Version 1.2
+#include "rhd_helpers.hpp"
 
-  Copyright (c) 2025 Intan Technologies
+void rhd_init(RHDConfigParameters *const p) {
+  // Determine suitable values to be written for each of the registers.
+  // TODO: Go back and see how much we can push it
+  p->sample_rate = 10;
+  set_default_rhd_settings(p);
 
-  This file is part of the Intan Technologies RHD STM32 Firmware Framework.
+  uint16_t registers[22];
+  for (int i = 0; i < 22; i++) {
+    registers[i] = get_register_value(p, i);
+  }
 
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the “Software”), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
+  // Send a few dummy commands in case chip is still powering up.
+  spi_transact(read_command(63));
+  spi_transact(read_command(63));
 
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
+  // Write suitable default values for RHD registers.
+  for (int i = 0; i < 22; i++) {
+    spi_transact(write_command(i, registers[i]));
+  }
 
-  THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
+  // Calibrate and run for 9 commands.
+  spi_transact(calibrate_command());
+  for (int i = 0; i < 9; i++) {
+    spi_transact(read_command(40));
+  }
+}
 
+void rhd_write_parameters(void) {}
 
-  See <http://www.intantech.com> for documentation and product information.
+void rhd_read_channel(uint8_t channel) {}
 
- */
+void rhd_read_many_channel(uint8_t *dataOut, uint8_t start, uint8_t end) {
+  spi_transact(uint16_t tx_data);
 
-#include "rhdregisters.h"
-#include "userconfig.h"
-#include <math.h>
+  // Write aux commands to command_sequence_MOSI, advancing one sample
+  // through aux_command_list. Cycles through pre-defined aux commands in
+  // aux_command_list
+  cycle_aux_commands();
+}
 
 // Convert a size-16 array of bits (each bit allocated as bool) to a 16-bit
 // word.

@@ -1,39 +1,11 @@
-/*
-  Intan Technologies RHD STM32 Firmware Framework
-  Version 1.2
+#pragma once
 
-  Copyright (c) 2025 Intan Technologies
+#include "rhd_hal.hpp"
 
-  This file is part of the Intan Technologies RHD STM32 Firmware Framework.
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the “Software”), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
-
-
-  See <http://www.intantech.com> for documentation and product information.
-
- */
-
-#ifndef INC_RHDREGISTERS_H_
-#define INC_RHDREGISTERS_H_
-
-#include <stdbool.h>
-#include <stdint.h>
+#define MAX_NUM_CHANNELS_PER_CHIP 64
+#define AUX_COMMANDS_PER_SEQUENCE 3
+#define CONVERT_COMMANDS_PER_SEQUENCE 32
+#define AUX_OFFSET CONVERT_COMMANDS_PER_SEQUENCE
 
 typedef enum ZcheckCs { ZcheckCs100fF, ZcheckCs1pF, ZcheckCs10pF } ZcheckCs;
 
@@ -93,8 +65,6 @@ typedef struct rhdconfigparameters {
   uint8_t rL_DAC3;
   bool amp_pwr[64];
 } RHDConfigParameters;
-
-#define MAX_NUM_CHANNELS_PER_CHIP 64
 
 void set_zcheck_scale(RHDConfigParameters *const p, ZcheckCs scale);
 void set_zcheck_polarity(RHDConfigParameters *const p, ZcheckPolarity polarity);
@@ -165,4 +135,24 @@ static inline uint32_t read_command(uint8_t reg_addr) {
   return READ_MASK | (reg_addr << 8);
 }
 
-#endif /* INC_RHDREGISTERS_H_ */
+// Configure registers with suitable default values (same as RHX software's
+// defaults), and write them to RHD chip via SPI.
+void configure_registers(void);
+
+// Populate command_sequence_MOSI with CONVERT commands; each command in
+// command_sequence_MOSI is executed once in ascending order per interrupt
+// routine execution.
+void configure_convert_commands(void);
+
+// Populate command_sequence_MOSI with AUX commands; each command in
+// command_sequence_MOSI is executed once in ascending order per interrupt
+// routine execution.
+void configure_aux_commands(void);
+
+void rhd_init(RHDConfigParameters *const p);
+
+void rhd_write_parameters(void);
+
+void rhd_read_channel(uint8_t channel);
+
+void rhd_read_many_channel(uint8_t *dataOut, uint8_t start, uint8_t end);
