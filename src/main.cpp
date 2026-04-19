@@ -20,12 +20,13 @@ void setup() {
 
   logger = start_sd_log();
 
-  // Print CSV heading to the logfile
-  logger.println("time,msg.id,msg.len,data,bus");
+  // Print CSV header to the logfile
+  logger.print("time,");
+  for (int i = 0; i < 65; i++) {
+    logger.printf("channel%i,", i);
+  }
+  logger.println();
   logger.flush();
-
-  // Do te ting
-  Serial.println("Log start");
 
   SPI.begin(); // Initialize SPI bus
   pinMode(SS, OUTPUT);
@@ -270,17 +271,22 @@ void setup() {
 }
 
 void loop() {
-  ISR_callback();
+  Serial.printf("%i,", millis());
+  logger.printf("%i,", millis());
 
-  Serial.print("Start\t");
-
-  for (int i = 0; i < 64; i++) {
+  for (int i = 0; i < 65; i++) {
     rawdata = SendConvertCommand(i);
-    Serial.printf(", %i:%i", i, rawdata);
-    delayMicroseconds(10);
+    Serial.printf("%i,", rawdata);
+    logger.printf("%i,", rawdata);
+    delayMicroseconds(10); // Give the chip time till the next Convert Command
   }
 
   Serial.println();
+  logger.println();
 
-  delay(100);
+  if (flush_timer.check()) {
+    logger.flush();
+  }
+
+  delay(1);
 }
