@@ -26,66 +26,54 @@
 
 
   See <http://www.intantech.com> for documentation and product information.
-
+  
  */
 
 #ifndef INC_RHDINTERFACE_H_
 #define INC_RHDINTERFACE_H_
 
-#include "main.h"
-#include "rhdregisters.h"
 #include "userconfig.h"
+#include "rhdregisters.h"
+#include "main.h"
 #include <stdlib.h>
 
-#ifdef USE_STM
-#include "stm32h7xx_it.h"
-#endif
-
-#ifdef USE_ARDUINO
-#include "Arduino.h"
-#endif
 
 // Error Conditions.
-typedef enum {
-  NoError = 0,    // No Error
-  TxDMAError = 1, // Transmit DMA Error - specific error condition outlined in
-                  // STM32H7 reference manual.
-  RxDMAError = 2, // Receive DMA Error - specific error condition outlined in
-                  // STM32H7 reference manual.
-  TxSPIError = 3, // Transmit SPI Error - specific error condition outlined in
-                  // STM32H7 reference manual.
-  RxSPIError = 4, // Receive SPI Error - specific error condition outlined in
-                  // STM32H7 reference manual.
-  SampleClip =
-      5, // TIM-triggered interrupt occurs before the previous sample processing
-         // routine finished execution, indicating that TIM period is too short,
-         // likely fixed by reducing sample rate by increasing TIM period or
-         // reducing number of commands per sequence.
-  TxUSARTError = 6, // Transmit USART Error - some issue with the transmission
-                    // of data across USART.
-  OutOfMemoryError = 7 // Attempted dynamic allocation of memory failed - not
-                       // enough available memory.
+typedef enum
+{
+	NoError = 0, // No Error
+	TxDMAError = 1, // Transmit DMA Error - specific error condition outlined in STM32H7 reference manual.
+	RxDMAError = 2, // Receive DMA Error - specific error condition outlined in STM32H7 reference manual.
+	TxSPIError = 3, // Transmit SPI Error - specific error condition outlined in STM32H7 reference manual.
+	RxSPIError = 4, // Receive SPI Error - specific error condition outlined in STM32H7 reference manual.
+	SampleClip = 5, // TIM-triggered interrupt occurs before the previous sample processing routine finished execution,
+					// indicating that TIM period is too short, likely fixed by reducing sample rate by increasing TIM
+					// period or reducing number of commands per sequence.
+	TxUSARTError = 6, // Transmit USART Error - some issue with the transmission of data across USART.
+	OutOfMemoryError = 7 // Attempted dynamic allocation of memory failed - not enough available memory.
 } ErrorCode;
 
-typedef enum { TRANSFER_WAIT, TRANSFER_COMPLETE, TRANSFER_ERROR } TransferState;
 
-extern volatile uint16_t command_sequence_MOSI[CONVERT_COMMANDS_PER_SEQUENCE +
-                                               AUX_COMMANDS_PER_SEQUENCE];
-extern volatile uint32_t command_sequence_MISO[CONVERT_COMMANDS_PER_SEQUENCE +
-                                               AUX_COMMANDS_PER_SEQUENCE];
+typedef enum {
+	TRANSFER_WAIT,
+	TRANSFER_COMPLETE,
+	TRANSFER_ERROR
+} TransferState;
+
+
+extern volatile uint16_t command_sequence_MOSI[CONVERT_COMMANDS_PER_SEQUENCE + AUX_COMMANDS_PER_SEQUENCE];
+extern volatile uint32_t command_sequence_MISO[CONVERT_COMMANDS_PER_SEQUENCE + AUX_COMMANDS_PER_SEQUENCE];
 extern volatile uint16_t next_aux_commands[AUX_COMMANDS_PER_SEQUENCE];
 
 extern uint16_t sample_counter;
 extern uint16_t *sample_memory;
 extern uint32_t per_channel_sample_memory_capacity;
 
-extern uint16_t aux_command_list[AUX_COMMANDS_PER_SEQUENCE]
-                                [AUX_COMMAND_LIST_LENGTH];
+extern uint16_t aux_command_list[AUX_COMMANDS_PER_SEQUENCE][AUX_COMMAND_LIST_LENGTH];
 
-// Unused, unless configuring zcheck DAC in configure_aux_commands(), in
-// userfunctions.c
-// static int8_t zcheck_DAC_command_slot_position = -1;
-// static int16_t zcheck_DAC_command_list_length = -1;
+// Unused, unless configuring zcheck DAC in configure_aux_commands(), in userfunctions.c
+//static int8_t zcheck_DAC_command_slot_position = -1;
+//static int16_t zcheck_DAC_command_list_length = -1;
 
 extern volatile bool main_loop_active;
 extern volatile bool uart_ready;
@@ -103,27 +91,17 @@ void end_spi_with_dma(void);
 void initialize_ddr_sclk_timers(void);
 void end_ddr_sclk_timers(void);
 
-void write_initial_reg_values(RHDConfigParameters *const p);
+void write_initial_reg_values(RHDConfigParameters* const p);
 double calculate_sample_rate(void);
-void create_convert_sequence(const uint8_t *const channel_numbers_to_convert);
+void create_convert_sequence(const uint8_t* const channel_numbers_to_convert);
 
-int create_command_list_RHD_register_config(const RHDConfigParameters *const p,
-                                            uint16_t *const command_list,
-                                            bool calibrate, int num_commands);
-int create_command_list_RHD_sample_aux_ins(uint16_t *const command_list,
-                                           int num_commands);
-int create_command_list_RHD_update_DigOut(const RHDConfigParameters *const p,
-                                          uint16_t *const command_list,
-                                          int num_commands);
-int create_command_list_dummy(const RHDConfigParameters *const p,
-                              uint16_t *const command_list, int n,
-                              uint16_t cmd);
-int create_command_list_zcheck_DAC(const RHDConfigParameters *const p,
-                                   uint16_t *const command_list,
-                                   double frequency, double amplitude);
+int create_command_list_RHD_register_config(const RHDConfigParameters* const p, uint16_t* const command_list, bool calibrate, int num_commands);
+int create_command_list_RHD_sample_aux_ins(uint16_t* const command_list, int num_commands);
+int create_command_list_RHD_update_DigOut(const RHDConfigParameters* const p, uint16_t* const command_list, int num_commands);
+int create_command_list_dummy(const RHDConfigParameters* const p, uint16_t* const command_list, int n, uint16_t cmd);
+int create_command_list_zcheck_DAC(const RHDConfigParameters* const p, uint16_t* const command_list, double frequency, double amplitude);
 void send_spi_command(uint16_t tx_data);
-void extract_ddr_words(uint32_t merged_word, uint16_t *const word_A,
-                       uint16_t *const word_B);
+void extract_ddr_words(uint32_t merged_word, uint16_t* const word_A, uint16_t* const word_B);
 
 void copy_next_aux_commands_to_MOSI(void);
 
@@ -135,10 +113,8 @@ extern TIM_HandleTypeDef INTERRUPT_TIM;
 extern TIM_HandleTypeDef CS_DELAY_TIM;
 extern TIM_HandleTypeDef RECEIVE_SCLK_TIM;
 #else
-void begin_spi_rx(uint32_t mem_increment, uint32_t mem_address,
-                  uint32_t num_words);
-void begin_spi_tx(uint32_t mem_increment, uint32_t mem_address,
-                  uint32_t num_words);
+void begin_spi_rx(uint32_t mem_increment, uint32_t mem_address, uint32_t num_words);
+void begin_spi_tx(uint32_t mem_increment, uint32_t mem_address, uint32_t num_words);
 void end_spi_rx(void);
 void end_spi_tx(void);
 void dma_interrupt_routine_rx(void);
@@ -149,57 +125,50 @@ void spi_interrupt_routine_tx(void);
 void uart_interrupt_routine(void);
 #endif
 
-#ifdef USE_STM
 // Write specified pin on specified port either high (1) or low (0).
-static inline void write_pin(GPIO_TypeDef *const gpio_port, uint32_t gpio_pin,
-                             bool level) {
+static inline void write_pin(GPIO_TypeDef* const gpio_port, uint32_t gpio_pin, bool level)
+{
 #ifdef USE_HAL
-  HAL_GPIO_WritePin(gpio_port, gpio_pin, level);
+	HAL_GPIO_WritePin(gpio_port, gpio_pin, level);
 #else
-  level ? LL_GPIO_SetOutputPin(gpio_port, gpio_pin)
-        : LL_GPIO_ResetOutputPin(gpio_port, gpio_pin);
+	level ? LL_GPIO_SetOutputPin(gpio_port, gpio_pin) : LL_GPIO_ResetOutputPin(gpio_port, gpio_pin);
 #endif
 }
-#elif defined(USE_ARDUINO)
-// Write specified pin on specified port either high (1) or low (0).
-static inline void write_pin(uint32_t gpio_pin, bool level) {
-  digitalWrite(gpio_pin, level);
-}
-#else
-#warning "no valid framework selected! No def for write_pin()!"
-#endif
 
-// Load WRITE command to specified aux slot position in MOSI command sequence
-// list.
-static inline void load_write_to_MOSI(uint8_t aux_slot, uint8_t reg_address) {
-  command_sequence_MOSI[AUX_OFFSET + aux_slot] =
-      write_command(reg_address, get_register_value(&parameters, reg_address));
+
+// Load WRITE command to specified aux slot position in MOSI command sequence list.
+static inline void load_write_to_MOSI(uint8_t aux_slot, uint8_t reg_address)
+{
+	command_sequence_MOSI[AUX_OFFSET + aux_slot] = write_command(reg_address, get_register_value(&parameters, reg_address));
 }
 
-// Load READ command to specified aux slot position in MOSI command sequence
-// list.
-static inline void load_read_to_MOSI(uint8_t aux_slot, uint8_t reg_address) {
-  command_sequence_MOSI[AUX_OFFSET + aux_slot] = read_command(reg_address);
+
+// Load READ command to specified aux slot position in MOSI command sequence list.
+static inline void load_read_to_MOSI(uint8_t aux_slot, uint8_t reg_address)
+{
+	command_sequence_MOSI[AUX_OFFSET + aux_slot] = read_command(reg_address);
 }
+
 
 // Calculate suitable size for sample_memory array and allocate memory.
-// Note, free_sample_memory() should be called after this function and when
-// memory allocation is no longer needed.
-static inline void allocate_sample_memory(void) {
-  per_channel_sample_memory_capacity =
-      calculate_sample_rate() * NUMBER_OF_SECONDS_TO_ACQUIRE;
-  uint32_t total_sample_memory_capacity =
-      NUM_SAMPLED_CHANNELS * 2 * per_channel_sample_memory_capacity;
-  sample_memory =
-      (uint16_t *)malloc(total_sample_memory_capacity * sizeof(uint16_t));
-  if (sample_memory == NULL) {
-    handle_error(OutOfMemoryError);
-  }
+// Note, free_sample_memory() should be called after this function and when memory allocation is no longer needed.
+static inline void allocate_sample_memory(void)
+{
+	per_channel_sample_memory_capacity = calculate_sample_rate() * NUMBER_OF_SECONDS_TO_ACQUIRE;
+	uint32_t total_sample_memory_capacity = NUM_SAMPLED_CHANNELS * 2 * per_channel_sample_memory_capacity;
+	sample_memory = (uint16_t *)malloc(total_sample_memory_capacity * sizeof(uint16_t));
+	if (sample_memory == NULL) {
+		handle_error(OutOfMemoryError);
+	}
 }
 
+
 // Free memory previously allocated for sample_memory array.
-// Note, this should be called after allocate_sample_memory() and when memory
-// allocation is no longer needed.
-static inline void free_sample_memory(void) { free(sample_memory); }
+// Note, this should be called after allocate_sample_memory() and when memory allocation is no longer needed.
+static inline void free_sample_memory(void)
+{
+	free(sample_memory);
+}
+
 
 #endif /* INC_RHDINTERFACE_H_ */
