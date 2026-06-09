@@ -16,7 +16,7 @@ target_include_directories(
   test_project PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
-add_subdirectory(external/pico_fatfs)
+# add_subdirectory(external/pico_fatfs)
 
 pico_enable_stdio_usb(test_project 1)
 pico_enable_stdio_uart(test_project 0)
@@ -27,5 +27,5 @@ target_link_libraries(
   test_project 
   pico_stdlib 
   pico_cyw43_arch_lwip_threadsafe_background
-  pico_fatfs
+  # pico_fatfs
 )

@@ -1,4 +1,9 @@
-#include "main.h"
+#include <pico/stdio.h>
+#include <pico/stdio_usb.h>
+
+#include "pico/cyw43_arch.h"
+#include "pico/stdlib.h"
+#include <pico/time.h>
 
 int main() {
   stdio_usb_init();
@@ -6,17 +11,8 @@ int main() {
   int rc = cyw43_arch_init();
   hard_assert(rc == PICO_OK);
 
-  bool sd_spi_good = init_sd();
-  hard_assert(sd_spi_good);
-
-  FATFS fs;
-  FRESULT res = f_mount(&fs, "", 1);
-  hard_assert(res == FR_OK);
-
-  char buff[256];
-
   while (true) {
-    scan_files(buff);
+    printf(":3\n");
     sleep_ms(500);
   }
 }
