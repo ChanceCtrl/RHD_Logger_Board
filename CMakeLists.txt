@@ -8,12 +8,20 @@ set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
 
-add_executable(
-  test_project src/main.cpp
+add_executable(test_project)
+
+# Make the DDR SPI pio lib headers
+pico_generate_pio_header(test_project
+  ${CMAKE_CURRENT_LIST_DIR}/pio/ddr_spi.pio
 )
 
-target_include_directories(
-  test_project PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include
+target_sources(test_project PRIVATE
+  src/main.c
+  src/ddr_spi_pio.c
+)
+
+target_include_directories(test_project
+  PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
 # add_subdirectory(external/pico_fatfs)
