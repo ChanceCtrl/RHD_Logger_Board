@@ -2,3 +2,6 @@
 compile_commands.json
 /.cache/clangd/index
 /build/**
+/arty-a7/rhd_ip_logger/rhd_ip_logger.cache
+/arty-a7/rhd_ip_logger/rhd_ip_logger.runs/.jobs
+/arty-a7/rhd_ip_logger/rhd_ip_logger.runs

@@ -1,0 +1,395 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineSystem.cmake:200 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The target system is: Generic -  - microblaze
+      The host system is: Linux - 7.1.3-1-cachyos - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-gcc 
+      Build flags: -mlittle-endian;-mxl-soft-mul;-mcpu=v11.0;-DSDT;-MMD;-MP;-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec;-I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+      Id flags:  
+      
+      The output was:
+      1
+      /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-ld.real: cannot find -lxil: No such file or directory
+      collect2.real: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-gcc 
+      Build flags: -mlittle-endian;-mxl-soft-mul;-mcpu=v11.0;-DSDT;-MMD;-MP;-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec;-I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.d"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification could not be found in:
+        /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/4.0.1/CompilerIdC/CMakeCCompilerId.d
+      
+      The C compiler identification is GNU, found in:
+        /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/4.0.1/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-g++ 
+      Build flags: -mlittle-endian;-mxl-soft-mul;-mcpu=v11.0;-DSDT;-MMD;-MP;-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec;-I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+      Id flags:  
+      
+      The output was:
+      1
+      /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-ld.real: cannot find -lxil: No such file or directory
+      collect2.real: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-g++ 
+      Build flags: -mlittle-endian;-mxl-soft-mul;-mcpu=v11.0;-DSDT;-MMD;-MP;-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec;-I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.d"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification could not be found in:
+        /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/4.0.1/CompilerIdCXX/CMakeCXXCompilerId.d
+      
+      The CXX compiler identification is GNU, found in:
+        /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/4.0.1/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-YsuTrR"
+      binary: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-YsuTrR"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "  -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include"
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_LIBRARY_PATH: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/lib"
+      CMAKE_MODULE_PATH: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-YsuTrR'
+        
+        Run Build Command(s): /home/ctrl/Documents/amd/2026.1/Vitis/bin/ninja -v cmTC_766ad
+        [1/2] /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-gcc   -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include    -v -o CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj -c /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        Reading specs from /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec
+        COLLECT_GCC=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-gcc.real
+        Target: microblaze-xilinx-elf
+        Configured with: ../../../../../../work-shared/gcc-13.4.0-r0/gcc-13.4.0/configure --build=x86_64-linux --host=x86_64-oesdk-linux --target=microblaze-xilinx-elf --prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --exec_prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --bindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --sbindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --libexecdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/libexec/microblaze-xilinx-elf --datadir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share --sysconfdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/etc --sharedstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/com --localstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/var --libdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf --includedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --oldincludedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --infodir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/info --mandir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/man --disable-silent-rules --disable-dependency-tracking --with-libtool-sysroot=/host --with-gnu-ld --enable-shared --enable-languages=c,c++,fortran --enable-threads=posix --enable-multilib --enable-c99 --enable-long-long --enable-libstdcxx-pch --program-prefix=microblaze-xilinx-elf- --without-local-prefix --disable-install-libiberty --disable-libssp --enable-libitm --enable-lto --disable-bootstrap --with-system-zlib --enable-linker-build-id --with-ppl=no --with-cloog=no --enable-checking=release --enable-cheaders=c_global --without-isl --with-gxx-include-dir=/not/exist/usr/include/c++/13.4.0 --with-build-time-tools=/host-native/usr/microblaze-xilinx-elf/bin --with-sysroot=/not/exist --with-build-sysroot=/host --with-plugin-ld=ld --enable-poison-system-directories --disable-static --enable-nls --with-glibc-version=2.28 --enable-initfini-array --enable-multilib --disable-initfini_array --disable-__cxa_atexit --disable-libstdcxx-pch --with-newlib --disable-threads --enable-plugins --with-gnu-as --disable-libitm --disable-tm-clone-registry --without-long-double-128 --with-sysroot=/not/exist
+        Thread model: single
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.4.0 (GCC) 
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/'
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/cc1 -quiet -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -imultilib le -iprefix /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/ -isysroot /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf -MMD CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.d -MP -MQ CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj -D SDT /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_766ad.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -version -ffunction-sections -fdata-sections -o /tmp/ccehRiX8.s
+        GNU C17 (GCC) version 13.4.0 (microblaze-xilinx-elf)
+        	compiled by GNU C version 13.4.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version none
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"
+        ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/include"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/local/include"
+        ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed
+         /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/
+        End of search list.
+        Compiler executable checksum: 91a0e85878a8f007c84f5709a15c15dd
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/'
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/as -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -EL -o CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj /tmp/ccehRiX8.s
+        GNU assembler version 2.42.0 (microblaze-xilinx-elf) using BFD version (GNU Binutils) 2.42.0.20240723
+        COMPILER_PATH=/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/
+        LIBRARY_PATH=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/le/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.'
+        [2/2] : && /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/bin/cmake -E rm -f libcmTC_766ad.a && mb-ar qc libcmTC_766ad.a  CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj && /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-ranlib libcmTC_766ad.a && :
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:191 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+          add: [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+          add: [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+          add: [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/]
+        end of search list found
+        collapse include dir [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include] ==> [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include] ==> [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed] ==> [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/] ==> [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include]
+        implicit include dirs: [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include;/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include;/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed;/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-YsuTrR']
+        ignore line: []
+        ignore line: [Run Build Command(s): /home/ctrl/Documents/amd/2026.1/Vitis/bin/ninja -v cmTC_766ad]
+        ignore line: [[1/2] /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-gcc   -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include    -v -o CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj -c /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [Reading specs from /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec]
+        ignore line: [COLLECT_GCC=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-gcc.real]
+        ignore line: [Target: microblaze-xilinx-elf]
+        ignore line: [Configured with: ../../../../../../work-shared/gcc-13.4.0-r0/gcc-13.4.0/configure --build=x86_64-linux --host=x86_64-oesdk-linux --target=microblaze-xilinx-elf --prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --exec_prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --bindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --sbindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --libexecdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/libexec/microblaze-xilinx-elf --datadir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share --sysconfdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/etc --sharedstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/com --localstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/var --libdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf --includedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --oldincludedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --infodir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/info --mandir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/man --disable-silent-rules --disable-dependency-tracking --with-libtool-sysroot=/host --with-gnu-ld --enable-shared --enable-languages=c,c++,fortran --enable-threads=posix --enable-multilib --enable-c99 --enable-long-long --enable-libstdcxx-pch --program-prefix=microblaze-xilinx-elf- --without-local-prefix --disable-install-libiberty --disable-libssp --enable-libitm --enable-lto --disable-bootstrap --with-system-zlib --enable-linker-build-id --with-ppl=no --with-cloog=no --enable-checking=release --enable-cheaders=c_global --without-isl --with-gxx-include-dir=/not/exist/usr/include/c++/13.4.0 --with-build-time-tools=/host-native/usr/microblaze-xilinx-elf/bin --with-sysroot=/not/exist --with-build-sysroot=/host --with-plugin-ld=ld --enable-poison-system-directories --disable-static --enable-nls --with-glibc-version=2.28 --enable-initfini-array --enable-multilib --disable-initfini_array --disable-__cxa_atexit --disable-libstdcxx-pch --with-newlib --disable-threads --enable-plugins --with-gnu-as --disable-libitm --disable-tm-clone-registry --without-long-double-128 --with-sysroot=/not/exist]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13.4.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/']
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/cc1 -quiet -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -imultilib le -iprefix /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/ -isysroot /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf -MMD CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.d -MP -MQ CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj -D SDT /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_766ad.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -version -ffunction-sections -fdata-sections -o /tmp/ccehRiX8.s]
+        ignore line: [GNU C17 (GCC) version 13.4.0 (microblaze-xilinx-elf)]
+        ignore line: [	compiled by GNU C version 13.4.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version none]
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"]
+        ignore line: [ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/include"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/local/include"]
+        ignore line: [ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: 91a0e85878a8f007c84f5709a15c15dd]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/']
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/as -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -EL -o CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj /tmp/ccehRiX8.s]
+        ignore line: [GNU assembler version 2.42.0 (microblaze-xilinx-elf) using BFD version (GNU Binutils) 2.42.0.20240723]
+        ignore line: [COMPILER_PATH=/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/]
+        ignore line: [LIBRARY_PATH=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/le/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.']
+        ignore line: [[2/2] : && /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/bin/cmake -E rm -f libcmTC_766ad.a && mb-ar qc libcmTC_766ad.a  CMakeFiles/cmTC_766ad.dir/CMakeCCompilerABI.c.obj && /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-ranlib libcmTC_766ad.a && :]
+        ignore line: []
+        ignore line: []
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-ZQw9nf"
+      binary: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-ZQw9nf"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "  -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_LIBRARY_PATH: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/lib"
+      CMAKE_MODULE_PATH: "/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-ZQw9nf'
+        
+        Run Build Command(s): /home/ctrl/Documents/amd/2026.1/Vitis/bin/ninja -v cmTC_4330d
+        [1/2] /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-g++   -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include    -v -o CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj -c /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        Reading specs from /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec
+        COLLECT_GCC=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-g++.real
+        Target: microblaze-xilinx-elf
+        Configured with: ../../../../../../work-shared/gcc-13.4.0-r0/gcc-13.4.0/configure --build=x86_64-linux --host=x86_64-oesdk-linux --target=microblaze-xilinx-elf --prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --exec_prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --bindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --sbindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --libexecdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/libexec/microblaze-xilinx-elf --datadir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share --sysconfdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/etc --sharedstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/com --localstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/var --libdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf --includedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --oldincludedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --infodir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/info --mandir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/man --disable-silent-rules --disable-dependency-tracking --with-libtool-sysroot=/host --with-gnu-ld --enable-shared --enable-languages=c,c++,fortran --enable-threads=posix --enable-multilib --enable-c99 --enable-long-long --enable-libstdcxx-pch --program-prefix=microblaze-xilinx-elf- --without-local-prefix --disable-install-libiberty --disable-libssp --enable-libitm --enable-lto --disable-bootstrap --with-system-zlib --enable-linker-build-id --with-ppl=no --with-cloog=no --enable-checking=release --enable-cheaders=c_global --without-isl --with-gxx-include-dir=/not/exist/usr/include/c++/13.4.0 --with-build-time-tools=/host-native/usr/microblaze-xilinx-elf/bin --with-sysroot=/not/exist --with-build-sysroot=/host --with-plugin-ld=ld --enable-poison-system-directories --disable-static --enable-nls --with-glibc-version=2.28 --enable-initfini-array --enable-multilib --disable-initfini_array --disable-__cxa_atexit --disable-libstdcxx-pch --with-newlib --disable-threads --enable-plugins --with-gnu-as --disable-libitm --disable-tm-clone-registry --without-long-double-128 --with-sysroot=/not/exist
+        Thread model: single
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 13.4.0 (GCC) 
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/'
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/cc1plus -quiet -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -imultilib le -iprefix /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/ -isysroot /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf -MMD CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.d -MP -MQ CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj -D SDT /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_4330d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -version -ffunction-sections -fdata-sections -o /tmp/cciyKWj2.s
+        GNU C++17 (GCC) version 13.4.0 (microblaze-xilinx-elf)
+        	compiled by GNU C version 13.4.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version none
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"
+        ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/include"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/local/include"
+        ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed"
+        ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed
+         /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0
+         /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le
+         /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward
+         /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/
+        End of search list.
+        Compiler executable checksum: a5840f62942f2a1f2a60a57ef8c2a650
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/'
+         /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/as -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -EL -o CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj /tmp/cciyKWj2.s
+        GNU assembler version 2.42.0 (microblaze-xilinx-elf) using BFD version (GNU Binutils) 2.42.0.20240723
+        COMPILER_PATH=/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/
+        LIBRARY_PATH=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/le/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/
+        COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.'
+        [2/2] : && /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/bin/cmake -E rm -f libcmTC_4330d.a && mb-ar qc libcmTC_4330d.a  CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj && /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-ranlib libcmTC_4330d.a && :
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:191 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+          add: [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+          add: [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+          add: [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0]
+          add: [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le]
+          add: [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward]
+          add: [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/]
+        end of search list found
+        collapse include dir [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include] ==> [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include] ==> [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed] ==> [/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0] ==> [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le] ==> [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward] ==> [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward]
+        collapse include dir [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/] ==> [/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include]
+        implicit include dirs: [/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include;/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include;/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed;/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0;/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le;/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward;/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/microblazeeb-xilinx-elf/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "/home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/libsrc/build_configs/gen_bsp/CMakeFiles/CMakeScratch/TryCompile-ZQw9nf']
+        ignore line: []
+        ignore line: [Run Build Command(s): /home/ctrl/Documents/amd/2026.1/Vitis/bin/ninja -v cmTC_4330d]
+        ignore line: [[1/2] /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-g++   -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -DSDT  -MMD -MP -specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec -I/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include    -v -o CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj -c /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [Reading specs from /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec]
+        ignore line: [COLLECT_GCC=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/microblaze-xilinx-elf-g++.real]
+        ignore line: [Target: microblaze-xilinx-elf]
+        ignore line: [Configured with: ../../../../../../work-shared/gcc-13.4.0-r0/gcc-13.4.0/configure --build=x86_64-linux --host=x86_64-oesdk-linux --target=microblaze-xilinx-elf --prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --exec_prefix=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr --bindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --sbindir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf --libexecdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/libexec/microblaze-xilinx-elf --datadir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share --sysconfdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/etc --sharedstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/com --localstatedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/var --libdir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/lib/microblaze-xilinx-elf --includedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --oldincludedir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/include --infodir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/info --mandir=/usr/local/oe-sdk-hardcoded-buildpath/sysroots/x86_64-oesdk-linux/usr/share/man --disable-silent-rules --disable-dependency-tracking --with-libtool-sysroot=/host --with-gnu-ld --enable-shared --enable-languages=c,c++,fortran --enable-threads=posix --enable-multilib --enable-c99 --enable-long-long --enable-libstdcxx-pch --program-prefix=microblaze-xilinx-elf- --without-local-prefix --disable-install-libiberty --disable-libssp --enable-libitm --enable-lto --disable-bootstrap --with-system-zlib --enable-linker-build-id --with-ppl=no --with-cloog=no --enable-checking=release --enable-cheaders=c_global --without-isl --with-gxx-include-dir=/not/exist/usr/include/c++/13.4.0 --with-build-time-tools=/host-native/usr/microblaze-xilinx-elf/bin --with-sysroot=/not/exist --with-build-sysroot=/host --with-plugin-ld=ld --enable-poison-system-directories --disable-static --enable-nls --with-glibc-version=2.28 --enable-initfini-array --enable-multilib --disable-initfini_array --disable-__cxa_atexit --disable-libstdcxx-pch --with-newlib --disable-threads --enable-plugins --with-gnu-as --disable-libitm --disable-tm-clone-registry --without-long-double-128 --with-sysroot=/not/exist]
+        ignore line: [Thread model: single]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 13.4.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/']
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/cc1plus -quiet -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -imultilib le -iprefix /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/ -isysroot /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf -MMD CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.d -MP -MQ CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj -D SDT /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/share/cmake-4.0/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_4330d.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mlittle-endian -mxl-soft-mul -mcpu=v11.0 -version -ffunction-sections -fdata-sections -o /tmp/cciyKWj2.s]
+        ignore line: [GNU C++17 (GCC) version 13.4.0 (microblaze-xilinx-elf)]
+        ignore line: [	compiled by GNU C version 13.4.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version none]
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"]
+        ignore line: [ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/include"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/local/include"]
+        ignore line: [ignoring duplicate directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/../../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/../../../../../microblaze-xilinx-elf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/include-fixed]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/microblaze-xilinx-elf/le]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/c++/13.4.0/backward]
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/include/]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: a5840f62942f2a1f2a60a57ef8c2a650]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/']
+        ignore line: [ /home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/as -v -I /home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include -EL -o CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj /tmp/cciyKWj2.s]
+        ignore line: [GNU assembler version 2.42.0 (microblaze-xilinx-elf) using BFD version (GNU Binutils) 2.42.0.20240723]
+        ignore line: [COMPILER_PATH=/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../libexec/microblaze-xilinx-elf/gcc/]
+        ignore line: [LIBRARY_PATH=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/le/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/gnu/microblaze/lin/x86_64-oesdk-linux/usr/bin/microblaze-xilinx-elf/../../lib/microblaze-xilinx-elf/gcc/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/microblaze-xilinx-elf/13.4.0/:/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='--sysroot=/home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/../microblazeeb-xilinx-elf' '-ffunction-sections' '-fdata-sections' '-mlittle-endian' '-mxl-soft-mul' '-mcpu=v11.0' '-D' 'SDT' '-MMD' '-MP' '-specs=/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/Xilinx.spec' '-I' '/home/ctrl/code/rhd_logger/arty-a7/vitis_workspace/arty_eth_platform/microblaze_0/standalone_microblaze_0/bsp/include' '-v' '-o' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-dumpdir' 'CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [[2/2] : && /home/ctrl/Documents/amd/2026.1/Vitis/tps/lnx64/cmake-4.0.1/bin/cmake -E rm -f libcmTC_4330d.a && mb-ar qc libcmTC_4330d.a  CMakeFiles/cmTC_4330d.dir/CMakeCXXCompilerABI.cpp.obj && /home/ctrl/Documents/amd/2026.1/Vitis/gnu/microblaze/lin/bin/mb-ranlib libcmTC_4330d.a && :]
+        ignore line: []
+        ignore line: []
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+...
