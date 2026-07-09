@@ -12,6 +12,7 @@ entity UARTHandler is
         reset          : in  std_logic;
         
         tx_start       : in  std_logic;
+        tx_ready       : out std_logic;
         rx_done        : out std_logic;
 
         data_in        : in  std_logic_vector (7 downto 0);
@@ -34,7 +35,8 @@ begin
         reset => reset,
         tx_start => tx_start,
         tx_data_in => data_in,
-        tx_data_out => tx
+        tx_data_out => tx,
+        tx_ready => tx_ready
     );
 
     receiver: entity work.RXHandler

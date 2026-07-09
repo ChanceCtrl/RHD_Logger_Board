@@ -1,0 +1,209 @@
+{
+  "main": {
+    "id": "b65e80683542d23b",
+    "type": "split",
+    "children": [
+      {
+        "id": "aed6a9f0122efe41",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cfb993f85188ba4d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fef761bb580be20c",
+    "type": "split",
+    "children": [
+      {
+        "id": "3ce97b8d4c2e9af9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ac52c767c9801a93",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "26570a3516e793bf",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "e7e6cd73bef6061a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "86e39abe35205725",
+    "type": "split",
+    "children": [
+      {
+        "id": "7547ad58610d9d88",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "137d36ac548352b0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for README"
+            }
+          },
+          {
+            "id": "82076dfb5ae57ee0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "README.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from README"
+            }
+          },
+          {
+            "id": "a4ffabf9f17739e8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "c771f7c5bb261559",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "60d715143e403548",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "README.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of README"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "cfb993f85188ba4d",
+  "lastOpenFiles": [
+    "vhdl/arty_a7_100t/arty_a7_100t.runs/impl_1/gen_run.xml",
+    "vhdl/arty_a7_100t/arty_a7_100t.srcs/sources_1/new/RHDConfigurator8000.vhd",
+    "vhdl/arty_a7_100t/arty_a7_100t.srcs/sources_1/new/PacketMaker9000.vhd",
+    "info/rhd2164.md",
+    "info/screenshots/Pasted image 20260708211751.png",
+    "info/screenshots/Pasted image 20260708211428.png",
+    "downloaded.md",
+    "info/rhd2164 register map.md",
+    "info/downloaded info/Intan_RHD2164_datasheet.pdf",
+    "info/downloaded info/Intan_RHD2000_series_datasheet.pdf",
+    "info/downloaded info/Intan_RHD2000_SPI_cable.pdf",
+    "here.md",
+    "info/downloaded info/Unconfirmed 486486.crdownload",
+    "info/screenshots",
+    "info/screenshots/Pasted image 20260708204855.png",
+    "info/downloaded info/Unconfirmed 192703.crdownload",
+    "info/downloaded info/Unconfirmed 97460.crdownload",
+    "info/downloaded info",
+    "README.md",
+    "python-app/python-app.md"
+  ]
+}

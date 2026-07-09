@@ -13,7 +13,8 @@ entity TXHandler is
         reset          : in  std_logic;
         tx_start       : in  std_logic;
         tx_data_in     : in  std_logic_vector (7 downto 0);
-        tx_data_out    : out std_logic
+        tx_data_out    : out std_logic;
+        tx_ready       : out std_logic;
     );
 end TXHandler;
 
@@ -83,6 +84,7 @@ begin
         if rising_edge(sys_clk) then
             if (reset = '1') then
                 tx_state <= IDLE;
+                tx_ready <= '0';
                 data_index_reset <= '1';   -- keep data_index_counter on hold
                 start_reset <= '1';        -- keep tx_start_detector on hold
                 tx_data_out <= '1';        -- keep tx line set along the standard
@@ -93,12 +95,14 @@ begin
                             data_index_reset <= '1';    -- keep data_index_counter on hold
                             start_reset <= '0';         -- enable tx_start_detector to wait for starting impulses
                             tx_data_out <= '1';         -- keep tx line set along the standard
+                            tx_ready <= '1';
 
                             if (start_detected = '1') then
                                 tx_state <= START;
                             end if;
 
                         when START =>
+                            tx_ready <= '0';
                             data_index_reset <= '0';   -- enable data_index_counter for DATA state
                             tx_data_out <= '0';        -- send '0' as a start bit
 

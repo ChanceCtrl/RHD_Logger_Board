@@ -20,8 +20,7 @@ end rhd_logger_arty;
 architecture rhd_logger_arty_arch of rhd_logger_arty is
     signal UARTInput : std_logic_vector (7 downto 0);
     signal convst, drdy, eoc, eos : std_logic;
-    signal count : natural range 0 to 1000 := 0;
-
+    signal spi_clk : std_logic := '0';
 begin
     UART_UUT : entity work.UARTHandler
         generic map(
@@ -36,19 +35,14 @@ begin
             rx => uart_txd_in,
             tx => uart_rxd_out
         );
-                
---    -- for a freq of 100 kHz, with a clk freq of 100 MHz
---    process(clk) begin
---        if clk'event and clk='1' then
---            count <= count + 1;
---            convst <= '0';
-            
---            if count = 999 then
---                count <= 0;
---                convst <= '1';
---            end if;
---        end if;
---    end process;
+
+    RHD_UUT : entity work.RHD2164Handler
+        generic map(
+
+        )
+        port map (
+
+        );
 
 
 end rhd_logger_arty_arch;
