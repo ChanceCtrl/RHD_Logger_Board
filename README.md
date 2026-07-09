@@ -12,3 +12,10 @@ A UV managed python app (who would've guessed) that is meant to handle logging i
 
 # Oh btw
 The root of this repo is also an obsidian vault, and that is the intended way to view this README and any of the other .md files.
+
+# TODO
+- [ ] RHD DDR receive logic
+- [ ] RHD transmit logic
+- [ ] RHD Register system in VHDL
+- [ ] Basic python app
+- [ ] Try a real-time capture
