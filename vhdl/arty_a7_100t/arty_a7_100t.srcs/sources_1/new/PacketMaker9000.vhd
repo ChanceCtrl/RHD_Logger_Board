@@ -14,7 +14,6 @@ entity PacketMaker9000 is
     uart_tx_enable    : out std_logic;
 
     -- RHD related things
-    header_buffer     : in  std_logic_vector (7 downto 0);
     a_channel_buffer  : in  std_logic_vector (15 downto 0);
     b_channel_buffer  : in  std_logic_vector (15 downto 0);
 
@@ -26,13 +25,12 @@ architecture PacketMaker9000_arch of PacketMaker9000 is
   type packet_states_t is (IDLE, SEND, HALT);
   signal packet_state  : packet_states_t := IDLE;
 
-  signal header_copy    : std_logic_vector (7  downto 0);
   signal a_channel_copy : std_logic_vector (15 downto 0);
   signal b_channel_copy : std_logic_vector (15 downto 0);
 begin
 
   packet_maker_FSM: process(sys_clk, reset)
-    variable packet_count : integer range 0 to 4 := 0;
+    variable packet_count : integer range 0 to 3 := 0;
   begin
     if (reset = '1') then
       packet_count := 0;
@@ -46,7 +44,6 @@ begin
           uart_tx_enable <= '0';
 
           if rhd_has_data = '1' then
-            header_copy <= header_buffer;
             a_channel_copy <= a_channel_buffer;
             b_channel_copy <= b_channel_buffer;
 
@@ -59,26 +56,21 @@ begin
           if uart_tx_ready = '1' then
             case packet_count is
               when 0 =>
-                uart_data_out <= header_copy;
-                uart_tx_enable <= '1';
-                packet_state <= HALT;
-
-              when 1 =>
                 uart_data_out <= a_channel_copy (7 downto 0);
                 uart_tx_enable <= '1';
                 packet_state <= HALT;
 
-              when 2 => 
+              when 1 => 
                 uart_data_out <= a_channel_copy (15 downto 8);
                 uart_tx_enable <= '1';
                 packet_state <= HALT;
 
-              when 3 => 
+              when 2 => 
                 uart_data_out <= b_channel_copy (7 downto 0);
                 uart_tx_enable <= '1';
                 packet_state <= HALT;
 
-              when 4 => 
+              when 3 => 
                 uart_data_out <= b_channel_copy (15 downto 8);
                 uart_tx_enable <= '1';
                 packet_state <= HALT;
@@ -88,7 +80,7 @@ begin
         when HALT => 
           uart_tx_enable <= '0';
 
-          if packet_count = 4 then
+          if packet_count = 3 then
             packet_count := 0;
             packet_state <= IDLE;
           elsif uart_tx_ready = '0' then

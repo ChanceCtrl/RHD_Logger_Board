@@ -14,7 +14,7 @@ entity TXHandler is
         tx_start       : in  std_logic;
         tx_data_in     : in  std_logic_vector (7 downto 0);
         tx_data_out    : out std_logic;
-        tx_ready       : out std_logic;
+        tx_ready       : out std_logic
     );
 end TXHandler;
 

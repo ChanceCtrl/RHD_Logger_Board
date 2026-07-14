@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "info/rhd2164.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "rhd2164"
             }
           }
         ]
@@ -185,6 +185,7 @@
   },
   "active": "cfb993f85188ba4d",
   "lastOpenFiles": [
+    "README.md",
     "vhdl/arty_a7_100t/arty_a7_100t.runs/impl_1/gen_run.xml",
     "vhdl/arty_a7_100t/arty_a7_100t.srcs/sources_1/new/RHDConfigurator8000.vhd",
     "vhdl/arty_a7_100t/arty_a7_100t.srcs/sources_1/new/PacketMaker9000.vhd",
@@ -202,8 +203,6 @@
     "info/screenshots/Pasted image 20260708204855.png",
     "info/downloaded info/Unconfirmed 192703.crdownload",
     "info/downloaded info/Unconfirmed 97460.crdownload",
-    "info/downloaded info",
-    "README.md",
     "python-app/python-app.md"
   ]
 }
