@@ -161,7 +161,7 @@ class MainWindow(QWidget):
 
         self.thread = QThread()
 
-        self.worker = SerialWorker(port, baud)
+        self.worker = SerialWorker(port, int(baud))
         self.worker.moveToThread(self.thread)
 
         self.thread.started.connect(self.worker.run)

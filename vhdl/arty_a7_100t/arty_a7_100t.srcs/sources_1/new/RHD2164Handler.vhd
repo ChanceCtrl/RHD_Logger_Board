@@ -63,8 +63,9 @@ end RHD2164Handler;
 
 architecture RHD2164Handler_arch of RHD2164Handler is
   -- Signals for generating the SPI clock
-  signal spi_clk_count  : natural := 0;
-  signal spi_clk_enable : std_logic := '0';
+  signal spi_clk_count   : natural := 0;
+  signal spi_clk_enable  : std_logic := '0';
+  signal spi_pulse_count : integer range 0 to 31 := 0;
 
   -- State machine stuff for the overall SPI managment
   type rhd_states_t is (IDLE, START, DATA, STOP);
@@ -78,9 +79,10 @@ architecture RHD2164Handler_arch of RHD2164Handler is
   signal a_buff     : std_logic_vector (15 downto 0);
   signal b_buff     : std_logic_vector (15 downto 0);
 
+  -- Signals for the actual wires
   signal spi_sclk : std_logic := '0';
   signal spi_cs   : std_logic := '1';
-  signal spi_mosi : std_logic := '0';
+  signal spi_mosi : std_logic := '1';
   signal spi_miso : std_logic := '0';
 
 begin
@@ -88,74 +90,107 @@ begin
   spi_line_cs   <= spi_cs;
   spi_line_mosi <= spi_mosi;
   spi_miso      <= spi_line_miso;
+  
+  -- Handles the MOSI transmitting logic
+  process(sys_clk)
+    variable bit_count : integer range 0 to 14 := 14;
+    variable spi_sclk_prev : std_logic := '0';
+  begin
+    if rising_edge(sys_clk) then
+      case rhd_state is
+        when START =>
+          spi_mosi <= send_buff(15);
+          bit_count := 14;
+          
+        when DATA =>
+          if spi_sclk_prev = '1' and spi_sclk = '0' then
+            spi_mosi <= send_buff(bit_count);
 
-  -- This process produces a 100mHz/SPI_CLK_TICKS Hz period, 50% duty cycle signal
-  process(sys_clk, spi_clk_enable) begin
-    if rising_edge(sys_clk) and spi_clk_enable = '1' then
-        if spi_clk_count = (SPI_CLK_TICKS/2) - 1 then
-            spi_clk_count <= 0;
-            spi_sclk <= not spi_sclk;
-        else
-            spi_clk_count <= spi_clk_count + 1;
-        end if;
-    end if;
-    
-    if spi_clk_enable = '0' then
-      spi_sclk <= '0';
+            if bit_count = 0 then
+              bit_count := 14;
+            else
+              bit_count := bit_count - 1;
+            end if;
+          end if;
+          
+        when others =>
+          spi_mosi <= '0';
+          bit_count := 14;
+      end case;
+      
+      spi_sclk_prev := spi_sclk;
     end if;
   end process;
 
   -- Grabs the falling edge bytes for the A Buffer
-  process(spi_sclk, rhd_state) 
+  process(spi_sclk) 
     variable bit_count : integer range 0 to 15 := 15;
   begin
-    if falling_edge(spi_sclk) and rhd_state = DATA then
-      if bit_count = 0 then
-        a_channel_done <= '1';
-        bit_count := 15;
-      else
-        a_channel_done <= '0';
-        a_buff(bit_count) <= spi_miso;
-        bit_count := bit_count - 1;
+    if falling_edge(spi_sclk) then
+      if rhd_state = DATA then
+        if bit_count = 0 then
+          a_channel_done <= '1';
+          bit_count := 15;
+        else
+          a_channel_done <= '0';
+          a_buff(bit_count) <= spi_miso;
+          bit_count := bit_count - 1;
+        end if;
       end if;
     end if;
   end process;
 
   -- Grabs the rising edge bytes for the B Buffer
-  process(spi_sclk, rhd_state, spi_cs)
+  process(sys_clk)
     -- Not 0 to 15 because the last bit isn't actually on a SCLK pulse, instead its mapped 
     -- to when CS goes high again... Because this chip hates people is my only guess why.
     variable bit_count : integer range 1 to 15 := 15; 
-  begin
-    if rising_edge(spi_sclk) and rhd_state = DATA then
-      if (bit_count = 1) then
-        bit_count := 15;
-      else
-        b_channel_done <= '0';
-        b_buff(bit_count) <= spi_miso;
-        bit_count := bit_count - 1;
-      end if;
-    end if;
     
-    if rhd_state = STOP and spi_cs = '1' then
-      b_buff(0) <= spi_miso;
-      b_channel_done <= '1';
+    variable spi_sclk_prev : std_logic := '0';
+  begin
+    if rising_edge(sys_clK) then
+      case rhd_state is 
+        when DATA =>
+          b_channel_done <= '0';
+          
+          if spi_sclk_prev = '0' and spi_sclk = '1' then
+            if (bit_count = 1) then
+              bit_count := 15;
+            else
+              b_buff(bit_count) <= spi_miso;
+              bit_count := bit_count - 1;
+            end if;
+          end if;
+          
+        when STOP =>
+          b_buff(0) <= spi_miso;
+          b_channel_done <= '1';
+          
+        when others =>
+          bit_count := 15;
+      end case;
+      
+      spi_sclk_prev := spi_sclk;
     end if;
   end process;
 
   -- A simple process that tells other people when we are done collecting data
-  process(sys_clk, a_channel_done, b_channel_done) begin 
-    if a_channel_done = '1' and b_channel_done = '1' then
-      -- Set outputs
-      a_channel_buffer <= a_buff;
-      b_channel_buffer <= b_buff;
-      new_data <= '1';
-
-      -- Reset signals
-
-    elsif rising_edge(sys_clk) then
-      -- Reset new_data signal for a pulse
-      new_data <= '0';
+  process(sys_clk) 
+    variable has_new_data  : std_logic := '0';
+    variable new_data_prev : std_logic := '0';
+  begin
+    if rising_edge(sys_clk) then
+        has_new_data := a_channel_done and b_channel_done;
+        
+        new_data <= '0';
+        
+        if has_new_data = '1' and new_data_prev = '0' then
+            a_channel_buffer <= a_buff;
+            b_channel_buffer <= b_buff;
+            new_data <= '1';
+        end if;
+        
+        new_data_prev := has_new_data;
     end if;
   end process;
 
@@ -166,9 +201,6 @@ begin
     variable t_cs2_count    : integer range 0 to T_CS2_TICKS    := 0;
     variable t_csoff_count  : integer range 0 to T_CSOFF_TICKS  := 0;
 
-    -- Variables for the MOSI logic
-    variable mosi_bit_count : integer range 0 to 15 := 15;
-
     -- SCLK counter
   begin
     if reset = '1' then
@@ -176,13 +208,13 @@ begin
       t_cs1_count     := 0;
       t_cs2_count     := 0;
       t_csoff_count   := 0;
-      mosi_bit_count  := 0;
+            
+      spi_clk_enable <= '0';
 
     elsif rising_edge(sys_clk) then
       case rhd_state is
         when IDLE =>
           spi_cs <= '1';
-          spi_mosi <= '0';
 
           rhd_is_ready <= '1';
 
@@ -195,29 +227,39 @@ begin
 
         when START =>
           spi_cs <= '0';
-          spi_mosi <= send_buff(mosi_bit_count);
           
           if t_cs1_count = T_CS1_TICKS then
-            spi_clk_enable <= '1';
+            t_cs1_count := 0;
+            
+            spi_clk_count <= 0;
+            spi_sclk <= '0';
+            spi_pulse_count <= 0;
+            
             rhd_state <= DATA;
           else
             t_cs1_count := t_cs1_count + 1;
           end if;
 
         when DATA =>
-          if spi_sclk = '0' then
-            spi_mosi <= send_buff(mosi_bit_count);
-
-            if mosi_bit_count = 0 then
-              spi_clk_enable <= '0';
-
+          -- Generates the SPI_SCLK signal
+          if spi_clk_count = (SPI_CLK_TICKS/2) then
+            spi_clk_count <= 0;
+            spi_sclk <= not spi_sclk;
+          
+            if spi_pulse_count = 31 then
+              spi_pulse_count <= 0;
               rhd_state <= STOP;
-            else 
-              mosi_bit_count := mosi_bit_count - 1;
+            else
+              spi_pulse_count <= spi_pulse_count + 1;
             end if;
+          else
+            spi_clk_count <= spi_clk_count + 1;
           end if;
 
         when STOP =>
+          spi_clk_count <= 0;
+          spi_sclk <= '0';
+          
           if t_cs2_count = T_CS2_TICKS then
             spi_cs <= '1';
 
