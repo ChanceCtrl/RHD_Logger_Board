@@ -7,6 +7,10 @@ pub enum Commands {
     ReadRegister,
 }
 
+pub trait ReadableRegister {
+    fn address(&self) -> u8;
+}
+
 #[derive(Debug, Clone, Copy)]
 pub enum ConfigRegisters {
     // Register 0: ADC Configuration and Amplifier Fast Settle
@@ -204,6 +208,12 @@ pub enum ConfigRegisters {
     // bit to apwr value... This fucking company hates people I swear.
 }
 
+impl ReadableRegister for ConfigRegisters {
+    fn address(&self) -> u8 {
+        return *self as u8;
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 pub enum ReadOnlyRegisters {
     // The read-only registers 40-44 contain the characters INTAN in ASCII.
@@ -233,4 +243,10 @@ pub enum ReadOnlyRegisters {
     // This read-only variable encodes a unique Intan Technologies ID number indicating the
     // type of chip. The chip ID for the RHD2132 is 1. The chip ID for the RHD2216 is 2.
     ChipID = 63,
+}
+
+impl ReadableRegister for ReadOnlyRegisters {
+    fn address(&self) -> u8 {
+        return *self as u8;
+    }
 }
