@@ -128,12 +128,13 @@ begin
   begin
     if falling_edge(spi_sclk) then
       if rhd_state = DATA then
+        a_buff(bit_count) <= spi_miso;
+
         if bit_count = 0 then
           a_channel_done <= '1';
           bit_count := 15;
         else
           a_channel_done <= '0';
-          a_buff(bit_count) <= spi_miso;
           bit_count := bit_count - 1;
         end if;
       end if;
@@ -144,9 +145,10 @@ begin
   process(sys_clk)
     -- Not 0 to 15 because the last bit isn't actually on a SCLK pulse, instead its mapped 
     -- to when CS goes high again... Because this chip hates people is my only guess why.
-    variable bit_count : integer range 1 to 15 := 15; 
+    variable bit_count : integer range 1 to 16 := 16; 
     
     variable spi_sclk_prev : std_logic := '0';
+    variable spi_cs_prev   : std_logic := '0';
   begin
     if rising_edge(sys_clK) then
       case rhd_state is 
@@ -154,8 +156,16 @@ begin
           b_channel_done <= '0';
           
           if spi_sclk_prev = '0' and spi_sclk = '1' then
+            -- This is the last bit transmitted on a sclk pulse 
             if (bit_count = 1) then
-              bit_count := 15;
+              b_buff(bit_count) <= spi_miso;
+              bit_count := 16;
+              
+            -- Skip the first rising edge
+            elsif (bit_count = 16) then
+              bit_count := bit_count - 1;
+              
+            -- Save the rising edge
             else
               b_buff(bit_count) <= spi_miso;
               bit_count := bit_count - 1;
@@ -163,14 +173,17 @@ begin
           end if;
           
         when STOP =>
-          b_buff(0) <= spi_miso;
-          b_channel_done <= '1';
+          if spi_cs = '1' and spi_cs_prev = '0' then
+            b_buff(0) <= spi_miso;
+            b_channel_done <= '1';
+          end if;
           
         when others =>
-          bit_count := 15;
+          bit_count := 16;
       end case;
       
       spi_sclk_prev := spi_sclk;
+      spi_cs_prev := spi_cs;
     end if;
   end process;
 

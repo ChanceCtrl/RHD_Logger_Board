@@ -14,8 +14,7 @@ entity rhd_logger_arty is
         uart_txd_in     : in    std_logic;
         uart_rxd_out    : out   std_logic;
         btn             : in    std_logic_vector (1 downto 0);
-        jb              : inout std_logic_vector (3 downto 0);
-        jc              : inout std_logic_vector (3 downto 0)
+        jb              : inout std_logic_vector (3 downto 0)
     );
 end rhd_logger_arty;
 
@@ -33,15 +32,10 @@ architecture rhd_logger_arty_arch of rhd_logger_arty is
     signal RHDBufferB   : std_logic_vector (15 downto 0) := (others => '0');
     signal RHDHasData   : std_logic := '0';
     signal RHDCommand   : std_logic := '0';
-begin   
-    jc(3) <= RHDCommand;
-    jc(2) <= RHDHasData;
-    jc(1) <= UARTReady;
-    jc(0) <= UARTEnable;
-    
+begin    
     UART_UUT : entity work.UARTHandler
         generic map(
-            BAUD_CLK_TICKS => 16
+            BAUD_CLK_TICKS => 868
         )
         port map (
             clk => CLK100MHZ,

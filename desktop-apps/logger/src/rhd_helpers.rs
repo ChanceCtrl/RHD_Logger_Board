@@ -18,12 +18,12 @@ pub struct RHD2164 {
 
 impl RHD2164 {
     pub fn init() -> Result<Self, Box<dyn Error>> {
-        let uart = SerialPort::open("/dev/ttyUSB0", 6250000)?;
+        let uart = SerialPort::open("/dev/ttyUSB1", 115200).unwrap();
 
         return Ok(RHD2164 {
             rhd_uart: uart,
             uart_data_buf: [0_u8; 4],
-            command_buf: VecDeque::with_capacity(2),
+            command_buf: VecDeque::new(),
             rhd_a_data: 0_u16,
             rhd_b_data: 0_u16,
         });
@@ -90,7 +90,7 @@ impl RHD2164 {
     }
 
     pub fn get_result(&mut self) -> Result<((Commands, u8), u16, u16), ()> {
-        if self.command_buf.len() == 2 {
+        if self.command_buf.len() == 3 {
             self.rhd_a_data = u16::from_le_bytes([self.uart_data_buf[0], self.uart_data_buf[1]]);
             self.rhd_b_data = u16::from_le_bytes([self.uart_data_buf[2], self.uart_data_buf[3]]);
 
@@ -101,19 +101,15 @@ impl RHD2164 {
     }
 
     fn send_command(&mut self, command: Commands, input: u8, payload: u16) {
-        if self
-            .rhd_uart
-            .write_all(payload.to_le_bytes().as_ref())
-            .is_err()
-        {
-            println!("Got an error writing to the serial port.");
-        }
+        self.rhd_uart
+            .write_all(payload.to_be_bytes().as_ref())
+            .unwrap();
 
-        if self.rhd_uart.read_exact(&mut self.uart_data_buf).is_err() {
-            println!("Failed to read the reply on the serial port.")
-        }
+        self.rhd_uart.flush().unwrap();
 
-        if self.command_buf.len() == 2 {
+        self.rhd_uart.read_exact(&mut self.uart_data_buf).unwrap();
+
+        if self.command_buf.len() == 3 {
             self.command_buf.pop_front();
         }
 
