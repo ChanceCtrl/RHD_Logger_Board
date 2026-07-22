@@ -1,4 +1,6 @@
-mod commands;
+pub mod commands;
+
+use std::{collections::VecDeque, error::Error};
 
 use commands::{Commands, ConfigRegisters, ReadableRegister};
 
@@ -8,21 +10,23 @@ pub struct RHD2164 {
     rhd_uart: SerialPort,
 
     uart_data_buf: [u8; 4],
-    command_buf: Vec<(Commands, u8)>,
+    command_buf: VecDeque<(Commands, u8)>,
 
     rhd_a_data: u16,
     rhd_b_data: u16,
 }
 
 impl RHD2164 {
-    pub fn init() -> Self {
-        RHD2164 {
-            rhd_uart: SerialPort::open("/dev/ttyUSB0", 6250000).unwrap(),
+    pub fn init() -> Result<Self, Box<dyn Error>> {
+        let uart = SerialPort::open("/dev/ttyUSB0", 6250000)?;
+
+        return Ok(RHD2164 {
+            rhd_uart: uart,
             uart_data_buf: [0_u8; 4],
-            command_buf: Vec::new(),
+            command_buf: VecDeque::with_capacity(2),
             rhd_a_data: 0_u16,
             rhd_b_data: 0_u16,
-        }
+        });
     }
 
     pub fn get_conversion(&mut self, channel: u8, reset_highpass: bool) -> Result<(), ()> {
@@ -35,9 +39,7 @@ impl RHD2164 {
         command |= (channel as u16) << 8; // 00CC_CCCC_0000_0000
         command |= reset_highpass as u16; // 00CC_CCCC_0000_000H
 
-        self.send_bytes(command);
-
-        self.command_buf.push((Commands::Convert, channel));
+        self.send_command(Commands::Convert, channel, command);
 
         return Ok(());
     }
@@ -45,9 +47,7 @@ impl RHD2164 {
     pub fn calibrate(&mut self) -> Result<(), ()> {
         let command: u16 = 0b0101_0101_0000_0000;
 
-        self.send_bytes(command);
-
-        self.command_buf.push((Commands::Calibrate, 0));
+        self.send_command(Commands::Calibrate, 0, command);
 
         return Ok(());
     }
@@ -55,9 +55,7 @@ impl RHD2164 {
     pub fn clear_calibration(&mut self) -> Result<(), ()> {
         let command: u16 = 0b0110_1010_0000_0000;
 
-        self.send_bytes(command);
-
-        self.command_buf.push((Commands::ClearCalibration, 0));
+        self.send_command(Commands::ClearCalibration, 0, command);
 
         return Ok(());
     }
@@ -72,10 +70,7 @@ impl RHD2164 {
         command |= (register as u16) << 8; // 10RR_RRRR_0000_0000
         command |= data as u16; // 10RR_RRRR_DDDD_DDDD
 
-        self.send_bytes(command);
-
-        self.command_buf
-            .push((Commands::WriteRegister, register as u8));
+        self.send_command(Commands::WriteRegister, register as u8, command);
 
         return Ok(());
     }
@@ -89,30 +84,26 @@ impl RHD2164 {
         let mut command: u16 = 0b1100_0000_0000_0000;
         command |= (register.address() as u16) << 8; //11RR_RRRR_0000_0000
 
-        self.send_bytes(command);
-
-        self.command_buf
-            .push((Commands::ReadRegister, register.address()));
+        self.send_command(Commands::ReadRegister, register.address(), command);
 
         return Ok(());
     }
 
-    pub fn get_result(self) -> Result<((Commands, u8), u16, u16), ()> {
-        if self.command_buf.len() > 2 {
-            return Ok((
-                self.command_buf[self.command_buf.len() - 2],
-                self.rhd_a_data,
-                self.rhd_b_data,
-            ));
+    pub fn get_result(&mut self) -> Result<((Commands, u8), u16, u16), ()> {
+        if self.command_buf.len() == 2 {
+            self.rhd_a_data = u16::from_le_bytes([self.uart_data_buf[0], self.uart_data_buf[1]]);
+            self.rhd_b_data = u16::from_le_bytes([self.uart_data_buf[2], self.uart_data_buf[3]]);
+
+            return Ok((self.command_buf[0], self.rhd_a_data, self.rhd_b_data));
         } else {
             return Err(());
         }
     }
 
-    fn send_bytes(&mut self, data: u16) {
+    fn send_command(&mut self, command: Commands, input: u8, payload: u16) {
         if self
             .rhd_uart
-            .write_all(data.to_le_bytes().as_ref())
+            .write_all(payload.to_le_bytes().as_ref())
             .is_err()
         {
             println!("Got an error writing to the serial port.");
@@ -121,5 +112,11 @@ impl RHD2164 {
         if self.rhd_uart.read_exact(&mut self.uart_data_buf).is_err() {
             println!("Failed to read the reply on the serial port.")
         }
+
+        if self.command_buf.len() == 2 {
+            self.command_buf.pop_front();
+        }
+
+        self.command_buf.push_back((command, input));
     }
 }
