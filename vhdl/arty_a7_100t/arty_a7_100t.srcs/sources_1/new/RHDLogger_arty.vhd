@@ -35,7 +35,7 @@ architecture rhd_logger_arty_arch of rhd_logger_arty is
 begin    
     UART_UUT : entity work.UARTHandler
         generic map(
-            BAUD_CLK_TICKS => 868
+            BAUD_CLK_TICKS => 16
         )
         port map (
             clk => CLK100MHZ,

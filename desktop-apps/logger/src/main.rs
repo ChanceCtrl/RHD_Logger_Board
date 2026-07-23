@@ -1,12 +1,12 @@
 mod random_helpers;
 mod rhd_helpers;
 
-use random_helpers::{pretty_print_system_time, t_now};
+use random_helpers::{log_thing, pretty_print_system_time, t_now};
 
 use rhd_helpers::RHD2164;
 
 use std::error::Error;
-use std::fs::{File, OpenOptions};
+use std::fs::OpenOptions;
 use std::io::Write;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -21,11 +21,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         r.store(false, Ordering::SeqCst);
     })
     .expect("Error setting Ctrl-C handler");
-
-    // Connect to the RHD uart bridge and configure it
-    let mut rhd = RHD2164::init()?;
-    // let _ = rhd.calibrate();
-    // std::thread::sleep(std::time::Duration::from_millis(400));
 
     // Open the file buffer
     let mut data_file = OpenOptions::new()
@@ -48,6 +43,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     writeln!(command_file, "time,command,request,rhd_a,rhd_b")?;
 
     let mut write_buf = [0_u16; 64];
+
+    // Connect to the RHD uart bridge and configure it
+    let mut rhd = RHD2164::init()?;
 
     while running.load(Ordering::SeqCst) {
         write!(data_file, "{},", t_now())?;
@@ -78,6 +76,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                     println!("Got error trying to collect result: {:?}", e);
                 }
             }
+
+            std::thread::sleep(std::time::Duration::from_millis(1));
         }
 
         // Write out the data buffer
@@ -90,25 +90,4 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     return Ok(());
-}
-
-fn log_thing(rhd: &mut RHD2164, file: &mut File) {
-    match rhd.get_result() {
-        Ok(data) => {
-            // Log the command we got back
-            writeln!(
-                file,
-                "{},{:?},{},{},{}",
-                t_now(),
-                data.0.0,
-                data.0.1,
-                data.1,
-                data.2
-            )
-            .unwrap();
-        }
-        Err(e) => {
-            println!("Got error trying to collect result: {:?}", e);
-        }
-    }
 }

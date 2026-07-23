@@ -1,6 +1,6 @@
 pub mod commands;
 
-use std::{collections::VecDeque, error::Error};
+use std::{collections::VecDeque, error::Error, time::Instant};
 
 use commands::{Commands, ConfigRegisters, ReadableRegister};
 
@@ -18,7 +18,7 @@ pub struct RHD2164 {
 
 impl RHD2164 {
     pub fn init() -> Result<Self, Box<dyn Error>> {
-        let uart = SerialPort::open("/dev/ttyUSB1", 115200).unwrap();
+        let uart = SerialPort::open("/dev/ttyUSB1", 6250000).unwrap();
 
         return Ok(RHD2164 {
             rhd_uart: uart,
