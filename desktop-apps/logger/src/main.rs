@@ -47,71 +47,47 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     writeln!(command_file, "time,command,request,rhd_a,rhd_b")?;
 
+    let mut write_buf = [0_u16; 64];
+
     while running.load(Ordering::SeqCst) {
-        rhd.read_register(rhd_helpers::commands::ReadOnlyRegisters::CompanyDesignatorI);
-        log_thing(&mut rhd, &mut command_file);
-        std::thread::sleep(std::time::Duration::from_millis(10));
+        write!(data_file, "{},", t_now())?;
 
-        rhd.read_register(rhd_helpers::commands::ReadOnlyRegisters::CompanyDesignatorN);
-        log_thing(&mut rhd, &mut command_file);
-        std::thread::sleep(std::time::Duration::from_millis(10));
+        for i in 0..32 {
+            let _ = rhd.get_conversion(i, false);
 
-        rhd.read_register(rhd_helpers::commands::ReadOnlyRegisters::CompanyDesignatorT);
-        log_thing(&mut rhd, &mut command_file);
-        std::thread::sleep(std::time::Duration::from_millis(10));
+            match rhd.get_result() {
+                Ok(data) => {
+                    // If its conversion data, save it to the write buffer
+                    if data.0.0 == rhd_helpers::commands::Commands::Convert {
+                        write_buf[data.0.1 as usize] = data.1;
+                        write_buf[(data.0.1 + 32) as usize] = data.2;
+                    }
 
-        rhd.read_register(rhd_helpers::commands::ReadOnlyRegisters::CompanyDesignatorA);
-        log_thing(&mut rhd, &mut command_file);
-        std::thread::sleep(std::time::Duration::from_millis(10));
+                    // Log the command we got back
+                    writeln!(
+                        command_file,
+                        "{},{:?},{},{},{}",
+                        t_now(),
+                        data.0.0,
+                        data.0.1,
+                        data.1,
+                        data.2
+                    )?;
+                }
+                Err(e) => {
+                    println!("Got error trying to collect result: {:?}", e);
+                }
+            }
+        }
 
-        rhd.read_register(rhd_helpers::commands::ReadOnlyRegisters::CompanyDesignatorN);
-        log_thing(&mut rhd, &mut command_file);
-        std::thread::sleep(std::time::Duration::from_millis(10));
+        // Write out the data buffer
+        for val in write_buf {
+            write!(data_file, "{val},")?;
+        }
+
+        // End the line
+        writeln!(data_file, "{}", t_now())?;
     }
-
-    // let mut write_buf = [0_u16; 63];
-    //
-    // while running.load(Ordering::SeqCst) {
-    //     write!(data_file, "{},", t_now())?;
-    //
-    //     for i in 0..32 {
-    //         let _ = rhd.get_conversion(i, false);
-    //
-    //         match rhd.get_result() {
-    //             Ok(data) => {
-    //                 // If its conversion data, save it to the write buffer
-    //                 if data.0.0 == rhd_helpers::commands::Commands::Convert {
-    //                     write_buf[data.0.1 as usize] = data.1;
-    //                     write_buf[(data.0.1 + 31) as usize] = data.2;
-    //                 }
-    //
-    //                 // Log the command we got back
-    //                 writeln!(
-    //                     command_file,
-    //                     "{},{:?},{},{},{}",
-    //                     t_now(),
-    //                     data.0.0,
-    //                     data.0.1,
-    //                     data.1,
-    //                     data.2
-    //                 )?;
-    //             }
-    //             Err(e) => {
-    //                 println!("Got error trying to collect result: {:?}", e);
-    //             }
-    //         }
-    //     }
-    //
-    //     // Write out the data buffer
-    //     for val in write_buf {
-    //         write!(data_file, "{val},")?;
-    //     }
-    //
-    //     // End the line
-    //     writeln!(data_file, "{}", t_now())?;
-    //
-    //     std::thread::sleep(std::time::Duration::from_millis(10));
-    // }
 
     return Ok(());
 }
