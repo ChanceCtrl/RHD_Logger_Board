@@ -11,10 +11,9 @@ use ieee.numeric_std.all;
 entity rhd_logger_arty is
     Port (
         CLK100MHZ       : in    std_logic;
-        uart_txd_in     : in    std_logic;
-        uart_rxd_out    : out   std_logic;
         btn             : in    std_logic_vector (1 downto 0);
-        jb              : inout std_logic_vector (3 downto 0)
+        jb              : inout std_logic_vector (3 downto 0);
+        jc              : inout std_logic_vector (1 downto 0)
     );
 end rhd_logger_arty;
 
@@ -35,7 +34,7 @@ architecture rhd_logger_arty_arch of rhd_logger_arty is
 begin    
     UART_UUT : entity work.UARTHandler
         generic map(
-            BAUD_CLK_TICKS => 16
+            BAUD_CLK_TICKS => 17
         )
         port map (
             clk => CLK100MHZ,
@@ -45,11 +44,14 @@ begin
             rx_done => UARTRecviced,
             data_in => UARTOutut,
             data_out => UARTInput,
-            rx => uart_txd_in,
-            tx => uart_rxd_out
+            rx => jc(0),
+            tx => jc(1)
         );
 
     RHD_UUT : entity work.RHD2164Handler
+        generic map (
+            SPI_CLK_TICKS => 10
+        )
         port map (
             sys_clk => CLK100MHZ,
             reset => btn(0),
