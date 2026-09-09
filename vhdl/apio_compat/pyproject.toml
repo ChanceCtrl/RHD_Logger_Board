@@ -1,0 +1,19 @@
+[project]
+name = "apio-compat"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "ChanceCtrl", email = "142356358+ChanceCtrl@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "apio>=1.5.1",
+]
+
+[project.scripts]
+apio-compat = "apio_compat:main"
+
+[build-system]
+requires = ["uv_build>=0.12.10,<0.13.0"]
+build-backend = "uv_build"
