@@ -1,28 +1,50 @@
 #include "rhd2164.hpp"
+#include "sd_helpers.hpp"
 #include <Arduino.h>
 
 RHD2164 rhd(Serial2);
+File logger;
+
+bool should_be_logging = true;
 
 void setup() {
-  rhd.init(5882353);
-  delay(1000);
+  Serial.println("You can press any key to pause the capture");
 
-  Serial.println("Starting...");
+  Serial.println("Starting RHD...");
+  rhd.init(5882353);
+  delay(500);
+  rhd.calibrate();
+  delay(2000);
+
+  logger = start_sd_log();
+  logger.println("Timestamp,Command,RHD_A,RHD_B");
+
+  Serial.println("Starting loop...");
 }
 
 void loop() {
-  rhd.read_register(40);
-  RHD2164Command res = rhd.get_result();
+  if (Serial.available() > 0) {
+    if (should_be_logging) {
+      Serial.println("Pausing...");
+      should_be_logging = false;
+    } else {
+      Serial.println("Resuming...");
+      should_be_logging = true;
+    }
+  }
 
-  rhd.read_register(41);
-  res = rhd.get_result();
+  if (should_be_logging) {
+    String conv_str = "";
+    conv_str += String(Teensy3Clock.get()) + ",";
 
-  rhd.read_register(42);
-  res = rhd.get_result();
+    for (int x = 0; x < 32; x++) {
+      rhd.get_conversion(x, false);
+      RHD2164Command res = rhd.get_result();
+      conv_str += String(res.command) + "," + String(res.rhd_a_val) + "," +
+                  String(res.rhd_b_val);
+    }
 
-  rhd.read_register(43);
-  res = rhd.get_result();
-
-  rhd.read_register(41);
-  res = rhd.get_result();
+    logger.println(conv_str);
+    logger.flush();
+  }
 }
