@@ -22,7 +22,7 @@ module UARTHandler #(
       .tx_start(tx_start),
       .tx_ready(tx_ready),
       .data_in(data_in),
-      .tx_line(tx_line),
+      .tx_line(tx_line)
   );
 
   RXHandler #(baud_clk_div) uart_rx (
@@ -30,7 +30,7 @@ module UARTHandler #(
       .reset(reset),
       .rx_done(rx_done),
       .data_out(data_out),
-      .rx_line(rx_line),
+      .rx_line(rx_line)
   );
 
 endmodule

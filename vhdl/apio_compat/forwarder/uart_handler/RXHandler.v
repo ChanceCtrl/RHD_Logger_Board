@@ -6,241 +6,85 @@ module RXHandler #(
     input wire clk,
     input wire reset,
 
-    input wire rx_line,
-
     output reg       rx_done,
     output reg [7:0] data_out,
 
-    // Debug outputs
-    output reg [ 1:0] debug_state,
-    output reg [ 2:0] debug_bit_count,
-    output reg [31:0] debug_bit_timer
+    input wire rx_line
 );
-
-  // ============================================================
-  // STATES
-  // ============================================================
-
-  localparam [1:0] IDLE = 2'd0, START = 2'd1, DATA = 2'd2;
-
-
-  // ============================================================
-  // TIMING
-  // ============================================================
-
-  localparam integer HALF_BIT_COUNT = BAUD_CLK_TICKS / 2;
-
-
-  // ============================================================
-  // REGISTERS
-  // ============================================================
-
+  // Statemachine defs
+  localparam [1:0] IDLE = 2'd0, START = 2'd1, DATA = 2'd2, STOP = 2'd3;
   reg [1:0] rx_state;
 
-  reg [7:0] rx_stored_data;
+  integer baud_count;
 
-  reg [2:0] bit_count;
+  reg [7:0] data_buffer;
+  integer data_index;
 
-  integer bit_timer;
-
-
-  // ============================================================
-  // RECEIVER
-  // ============================================================
-
+  // 8N1 UART RX controller fella
   always @(posedge clk) begin
-
     if (reset) begin
+      rx_state    <= IDLE;
 
-      rx_state        <= IDLE;
+      rx_done    <= 1'b0;
 
-      rx_stored_data  <= 8'h00;
-
-      data_out        <= 8'h00;
-
-      rx_done         <= 1'b0;
-
-      bit_count       <= 3'd0;
-
-      bit_timer       <= 0;
-
-      debug_state     <= IDLE;
-      debug_bit_count <= 3'd0;
-      debug_bit_timer <= 32'd0;
-
+      data_buffer <= 8'b0;
+      data_index  <= 0;
     end else begin
-
-      // ----------------------------------------------------
-      // DEBUG OUTPUTS
-      // ----------------------------------------------------
-
-      debug_state     <= rx_state;
-      debug_bit_count <= bit_count;
-      debug_bit_timer <= bit_timer;
-
-
       case (rx_state)
-
-
-        // =================================================
-        // IDLE
-        // =================================================
-
         IDLE: begin
+          baud_count <= 0;
+          data_index <= 0;
+          rx_done <= 1'b0;
 
-          bit_timer <= 0;
-          bit_count <= 0;
-
-          // Wait for start bit
-          if (rx_line == 1'b0) begin
-
-            rx_state  <= START;
-
-            bit_timer <= 0;
-
-          end
-
+          // The start bit is 0
+          if (rx_line == 1'b0) rx_state <= START;
         end
-
-
-        // =================================================
-        // START
-        // =================================================
-        //
-        // We detected LOW.
-        //
-        // Wait half a bit and check that the line is
-        // still LOW.
-        //
-        // =================================================
 
         START: begin
-
-          if (bit_timer >= HALF_BIT_COUNT - 1) begin
-
-            if (rx_line == 1'b0) begin
-
-              // -------------------------------------
-              // Valid start bit.
-              //
-              // We are now at approximately the
-              // center of the start bit.
-              //
-              // Wait one full bit to reach the center
-              // of DATA bit 0.
-              // -------------------------------------
-
-              rx_state  <= DATA;
-
-              bit_timer <= 0;
-
-              bit_count <= 0;
-
-            end else begin
-
-              // False start
-
-              rx_state  <= IDLE;
-
-              bit_timer <= 0;
-
-            end
-
-          end else begin
-
-            bit_timer <= bit_timer + 1;
-
-          end
-
+          // Make sure its a real 0 start bit fella by waiting half a baud_clk
+          if (rx_line == 1'b0) begin
+            if (baud_count == (BAUD_CLK_TICKS / 2)) begin
+              baud_count <= 0;
+              data_index <= 0;
+              rx_state   <= DATA;
+            end else baud_count <= baud_count + 1;
+          end else rx_state <= IDLE;
         end
-
-
-        // =================================================
-        // DATA
-        // =================================================
-        //
-        // Sample one bit every BAUD_CLK_TICKS clocks.
-        //
-        // =================================================
 
         DATA: begin
+          // Now that we are half a baud_clk off, we can count in full baud_clk
+          // cycles and capture the middle of the data bits
+          if (baud_count == BAUD_CLK_TICKS) begin
+            baud_count <= 0;
 
-          if (bit_timer >= BAUD_CLK_TICKS - 1) begin
+            data_buffer[data_index] <= rx_line;
 
-            // -----------------------------------------
-            // Sample the current data bit
-            // -----------------------------------------
+            // GG go next until the data buffer is full
+            if (data_index == 7) rx_state <= STOP;
+            else data_index <= data_index + 1;
 
-            rx_stored_data[bit_count] <= rx_line;
-
-            bit_timer <= 0;
-
-
-            if (bit_count == 3'd7) begin
-
-              // -------------------------------------
-              // 8th bit has just been sampled.
-              //
-              // IMPORTANT:
-              //
-              // rx_stored_data[7] is updated with a
-              // NON-BLOCKING assignment, so we cannot
-              // use rx_stored_data directly for
-              // data_out here.
-              //
-              // Construct the final byte explicitly.
-              // -------------------------------------
-
-              data_out  <= {rx_line, rx_stored_data[6:0]};
-
-              // -------------------------------------
-              // BYTE COMPLETE
-              //
-              // Keep rx_done HIGH until reset.
-              // -------------------------------------
-
-              rx_done   <= 1'b1;
-
-              // Return to idle
-              rx_state  <= IDLE;
-
-              bit_count <= 0;
-
-            end else begin
-
-              bit_count <= bit_count + 1'b1;
-
-            end
-
-          end else begin
-
-            bit_timer <= bit_timer + 1;
-
-          end
-
+          end else baud_count <= baud_count + 1;
         end
 
+        STOP: begin
+          if (baud_count == BAUD_CLK_TICKS) begin
+            baud_count <= 0;
+            rx_done <= 1'b1;
+            data_out <= data_buffer;
+            rx_state <= IDLE;
+          end else baud_count <= baud_count + 1;
+        end
 
-        // =================================================
-        // DEFAULT
-        // =================================================
-
+        // Same as reset logic
         default: begin
+          rx_state    <= IDLE;
 
-          rx_state  <= IDLE;
+          rx_done    <= 1'b0;
 
-          bit_timer <= 0;
-
-          bit_count <= 0;
-
+          data_buffer <= 8'b0;
+          data_index  <= 0;
         end
-
       endcase
-
     end
-
   end
-
 endmodule
-
-`default_nettype wire

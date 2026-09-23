@@ -220,8 +220,12 @@ module RHD2164Handler #(
             spi_sclk <= ~spi_sclk;
 
             if (spi_pulse_count == 31) begin
+              // Final SCLK edge has just been generated.
+              // Stay in DATA for one more sys_clk so the
+              // edge detector can see/process it.
+              spi_pulse_count <= 32;
+            end else if (spi_pulse_count == 32) begin
               spi_pulse_count <= 0;
-
               rhd_state <= STOP;
             end else begin
               spi_pulse_count <= spi_pulse_count + 1;

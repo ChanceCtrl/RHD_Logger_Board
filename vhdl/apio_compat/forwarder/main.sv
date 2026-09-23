@@ -4,7 +4,9 @@ module main (
     input clk,
     input [1:0] btn,
     inout [3:0] jb,
-    inout [2:0] jc
+    inout [1:0] jc,
+    inout [3:0] jd,
+    inout [3:0] ja
 );
   // UART signals
   reg tx_start_sig;
@@ -21,7 +23,7 @@ module main (
   reg [15:0] rhd_buffer_b;
 
   UARTHandler #(
-      .baud_clk_div(17)
+      .baud_clk_div(16)
   ) uart_joe (
       .clk(clk),
       .reset(btn[0]),
@@ -69,5 +71,14 @@ module main (
       .rhd_command_buffer(rhd_buffer_d),
       .command_buffer_full(rhd_command)
   );
+
+  always_comb begin
+    jd[0] = tx_start_sig;
+    jd[1] = tx_ready_sig;
+    jd[2] = rx_done_sig;
+    jd[3] = rhd_command;
+
+    ja[0] = rhd_has_data;
+  end
 
 endmodule

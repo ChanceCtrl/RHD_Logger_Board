@@ -1,6 +1,7 @@
 .pio
 /vhdl/arty_a7_100t/arty_a7_100t.runs
 /vhdl/arty_a7_100t/arty_a7_100t.cache/wt
+/vhdl/apio_compat/**/_build
 /python-app/logger/target
 /desktop-apps/logger/target
 *.CSV
