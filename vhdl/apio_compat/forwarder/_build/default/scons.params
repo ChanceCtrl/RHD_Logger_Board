@@ -1,15 +1,16 @@
-timestamp: "23144326308"
-arch: XILINX
+timestamp: "23151708693"
+arch: ICE40
 fpga_info {
-  fpga_id: "xc7a100tcsg324"
-  part_num: "XC7A100TCSG324"
-  size: "100k"
-  xilinx_params {
-    family: "artix7"
-    yosys_arch: "xc7"
-    package: "xc7a100tcsg324"
-    speed: "1"
+  fpga_id: "ice40lp1k-cm36"
+  part_num: "ICE40LP1K-CM36"
+  size: "1k"
+  ice40_params {
+    type: "lp1k"
+    package: "cm36"
   }
+}
+verbosity {
+  pnr: true
 }
 environment {
   platform_id: "linux-x86-64"
@@ -25,11 +26,11 @@ environment {
 }
 apio_env_params {
   env_name: "default"
-  board_id: "arty-a7-100t"
+  board_id: "icesugar-nano"
   top_module: "main"
 }
 target {
-  upload {
-    programmer_cmd: "openFPGALoader --force-terminal-mode --verify --board arty_a7_100t $SOURCE"
+  report {
+    report_all: true
   }
 }

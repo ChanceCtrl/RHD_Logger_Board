@@ -1,12 +1,14 @@
 `default_nettype none
 
 module main (
-    input clk,
-    input [1:0] btn,
-    inout [3:0] jb,
-    inout [1:0] jc,
-    inout [3:0] jd,
-    inout [3:0] ja
+    input CLK,
+    inout MISO,
+    inout MOSI,
+    inout SCLK,
+    inout CS,
+    inout RX,
+    inout TX
+
 );
   // UART signals
   reg tx_start_sig;
@@ -25,26 +27,24 @@ module main (
   UARTHandler #(
       .baud_clk_div(16)
   ) uart_joe (
-      .clk(clk),
-      .reset(btn[0]),
+      .clk(CLK),
       .tx_start(tx_start_sig),
       .tx_ready(tx_ready_sig),
       .rx_done(rx_done_sig),
       .data_in(data_to_send),
       .data_out(data_recived),
-      .rx_line(jc[0]),
-      .tx_line(jc[1])
+      .rx_line(RX),
+      .tx_line(TX)
   );
 
   RHD2164Handler #(
       .SPI_CLK_TICKS(10)
   ) rhd_joe (
-      .sys_clk(clk),
-      .reset(btn[0]),
-      .spi_line_miso(jb[0]),
-      .spi_line_mosi(jb[1]),
-      .spi_line_sclk(jb[2]),
-      .spi_line_cs(jb[3]),
+      .sys_clk(CLK),
+      .spi_line_miso(MISO),
+      .spi_line_mosi(MOSI),
+      .spi_line_sclk(SCLK),
+      .spi_line_cs(CS),
       .send_data_buffer(rhd_buffer_d),
       .send_command(rhd_command),
       .a_channel_buffer(rhd_buffer_a),
@@ -53,8 +53,7 @@ module main (
   );
 
   PacketMaker9000 pm9k (
-      .sys_clk(clk),
-      .reset(btn[0]),
+      .sys_clk(CLK),
       .uart_data_out(data_to_send),
       .uart_tx_ready(tx_ready_sig),
       .uart_tx_enable(tx_start_sig),
@@ -64,21 +63,10 @@ module main (
   );
 
   CommandHandler joe_command (
-      .sys_clk(clk),
-      .reset(btn[0]),
+      .sys_clk(CLK),
       .uart_buffer(data_recived),
       .uart_rx_done(rx_done_sig),
       .rhd_command_buffer(rhd_buffer_d),
       .command_buffer_full(rhd_command)
   );
-
-  always_comb begin
-    jd[0] = tx_start_sig;
-    jd[1] = tx_ready_sig;
-    jd[2] = rx_done_sig;
-    jd[3] = rhd_command;
-
-    ja[0] = rhd_has_data;
-  end
-
 endmodule
