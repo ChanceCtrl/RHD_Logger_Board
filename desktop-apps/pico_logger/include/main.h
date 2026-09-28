@@ -7,5 +7,3 @@
 #include "stdio.h"
 #include <pico/stdio.h>
 #include <pico/stdio_usb.h>
-
-#include "sd_helpers.hpp"
