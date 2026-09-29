@@ -1,19 +1,59 @@
-#include "main.h"
+#include <pico/cyw43_arch.h>
+#include <pico/stdio.h>
+
+#include "pico/status_led.h" // libary for simplifying onboard LED usage on Pico W
+
+#include "lwip/ip4_addr.h"
+#include "lwip/udp.h"
+
+#define BEACON_MSG_LEN_MAX 127
 
 int main() {
-  stdio_usb_init();
+  stdio_init_all();
 
-  int rc = cyw43_arch_init();
-  hard_assert(rc == PICO_OK);
+  if (cyw43_arch_init()) {
+    printf("failed to initialise WiFi\n");
+    return 1;
+  }
 
-  // FATFS fs;
-  // FRESULT res = f_mount(&fs, "", 1);
-  // hard_assert(res == FR_OK);
+  // Initialise led
+  if (!status_led_init_with_context(cyw43_arch_async_context())) {
+    printf("failed to initialise LED");
+    return 1;
+  }
 
-  char buff[256];
+  const char *ap_name = "brace_test";
+  const char *password = "test_brace";
 
+  cyw43_arch_enable_ap_mode(ap_name, password, CYW43_AUTH_WPA2_AES_PSK);
+
+  ip4_addr_t target_ip;
+  target_ip.addr = PP_HTONL(LWIP_MAKEU32(192, 168, 4, 2));
+  struct udp_pcb *pcb = udp_new();
+
+  int counter = 0;
   while (true) {
-    printf("mrow :3");
-    sleep_ms(100);
+    // Make the sandwich
+    struct pbuf *p =
+        pbuf_alloc(PBUF_TRANSPORT, BEACON_MSG_LEN_MAX + 1, PBUF_RAM);
+
+    char *req = (char *)p->payload;
+
+    memset(req, 0, BEACON_MSG_LEN_MAX + 1);
+
+    snprintf(req, BEACON_MSG_LEN_MAX, "%d\n", counter);
+
+    err_t er = udp_sendto(pcb, p, &target_ip, 5005);
+
+    pbuf_free(p);
+
+    if (er != ERR_OK) {
+      printf("Failed to send UDP packet! error=%d", er);
+    } else {
+      printf("Sent packet %d\n", counter);
+      counter++;
+    }
+
+    sleep_ms(1000);
   }
 }
