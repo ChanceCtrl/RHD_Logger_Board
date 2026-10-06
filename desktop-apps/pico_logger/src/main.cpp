@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <pico/cyw43_arch.h>
 #include <pico/stdio.h>
 
@@ -6,7 +7,20 @@
 #include "lwip/ip4_addr.h"
 #include "lwip/udp.h"
 
+#include "rhd_responses_builder.h"
+
 #define BEACON_MSG_LEN_MAX 127
+
+void build_readwriterespons(flatcc_builder_t *B) {
+  RHDResponses_RawResult_start_as_root(B);
+  RHDResponses_RawResult_timestamp_us_add(B, 10);
+  RHDResponses_RawResult_command_type_add(B,
+                                          RHDCommon_CommandType_ReadRegister);
+  RHDResponses_RawResult_register_add(B, 40);
+  RHDResponses_RawResult_rhd_a_add(B, 63);
+  RHDResponses_RawResult_rhd_b_add(B, 63);
+  RHDResponses_RawResult_end_as_root(B);
+}
 
 int main() {
   stdio_init_all();
@@ -31,6 +45,18 @@ int main() {
   target_ip.addr = PP_HTONL(LWIP_MAKEU32(192, 168, 4, 2));
   struct udp_pcb *pcb = udp_new();
 
+  flatcc_builder_t builder;
+  void *buffer;
+  size_t size;
+
+  flatcc_builder_init(&builder);
+
+  build_readwriterespons(&builder);
+  buffer = flatcc_builder_get_direct_buffer(&builder, &size);
+  printf("Size of joe, %i, ", size);
+
+  flatcc_builder_clear(&builder);
+
   int counter = 0;
   while (true) {
     // Make the sandwich
@@ -41,7 +67,7 @@ int main() {
 
     memset(req, 0, BEACON_MSG_LEN_MAX + 1);
 
-    snprintf(req, BEACON_MSG_LEN_MAX, "%d\n", counter);
+    memcpy(req, buffer, size);
 
     err_t er = udp_sendto(pcb, p, &target_ip, 5005);
 

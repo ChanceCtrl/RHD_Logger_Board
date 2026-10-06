@@ -1,0 +1,9 @@
+namespace RHDCommon;
+
+enum CommandType : byte {
+  Convert = 0,
+  Calibrate = 1,
+  ClearCalibration = 2,
+  WriteRegister = 3,
+  ReadRegister = 4
+}

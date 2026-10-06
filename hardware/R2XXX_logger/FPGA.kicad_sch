@@ -1046,7 +1046,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "36b9c472-5aa8-4fa8-b708-5f908ac77818")
-		(property "Reference" "U2"
+		(property "Reference" "U4"
 			(at 115.57 81.2799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1251,7 +1251,7 @@
 		(instances
 			(project "R2XXX_logger"
 				(path "/77c40bdb-f224-4f9c-bece-a146e46e73be/3647f277-d804-4cc5-a736-cb9e0e2670ce"
-					(reference "U2")
+					(reference "U4")
 					(unit 1)
 				)
 			)
@@ -1269,7 +1269,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "856d8afe-9653-4441-b23c-2f670b62de81")
-		(property "Reference" "U2"
+		(property "Reference" "U4"
 			(at 125.73 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1474,7 +1474,7 @@
 		(instances
 			(project "R2XXX_logger"
 				(path "/77c40bdb-f224-4f9c-bece-a146e46e73be/3647f277-d804-4cc5-a736-cb9e0e2670ce"
-					(reference "U2")
+					(reference "U4")
 					(unit 4)
 				)
 			)
@@ -1492,7 +1492,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8db22d7f-30f1-4645-8ed5-730d94448e42")
-		(property "Reference" "U2"
+		(property "Reference" "U4"
 			(at 152.4 142.24 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1695,7 +1695,7 @@
 		(instances
 			(project "R2XXX_logger"
 				(path "/77c40bdb-f224-4f9c-bece-a146e46e73be/3647f277-d804-4cc5-a736-cb9e0e2670ce"
-					(reference "U2")
+					(reference "U4")
 					(unit 2)
 				)
 			)
@@ -1713,7 +1713,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a783fff5-fa34-4efb-af52-b46f311fb852")
-		(property "Reference" "U2"
+		(property "Reference" "U4"
 			(at 95.25 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1918,7 +1918,7 @@
 		(instances
 			(project "R2XXX_logger"
 				(path "/77c40bdb-f224-4f9c-bece-a146e46e73be/3647f277-d804-4cc5-a736-cb9e0e2670ce"
-					(reference "U2")
+					(reference "U4")
 					(unit 3)
 				)
 			)

@@ -34,6 +34,7 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               cmake
+              flatcc
               picotool
               local-pico-sdk
               gcc-arm-embedded

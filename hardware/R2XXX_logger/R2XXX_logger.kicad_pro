@@ -303,7 +303,7 @@
     "annotate_start_num": 0,
     "annotation": {
       "method": 0,
-      "sort_order": 0
+      "sort_order": 1
     },
     "bom_export_filename": "${PROJECTNAME}.csv",
     "bom_fmt_presets": [],
@@ -429,7 +429,7 @@
         "uuid": "77c40bdb-f224-4f9c-bece-a146e46e73be"
       }
     ],
-    "used_designators": "J1,X1,SWDIO1,R3,R5-6,R14,L1,U1-4,U7,GND_TP1-2,DVDD1,CC_19-20,C1-2,C9,C26,C28-31,C34,C42,C45,C53,C55-60,SWCLK1,#PWR2,#PWR8,#PWR10,#PWR13,#PWR17,#PWR30,#PWR34,#PWR36,#PWR41,#PWR44,#PWR53",
+    "used_designators": "J1-3,X1,SWDIO1,R1-10,R14,L1,U1-4,U7,GND_TP1-2,DVDD1,CC_19-20,C1-18,C26,C28-31,C34,C42,C45,C53,C55-60,SWCLK1,#PWR1-17,#PWR30,#PWR34,#PWR36,#PWR41,#PWR44,#PWR53",
     "variants": []
   },
   "sheets": [
