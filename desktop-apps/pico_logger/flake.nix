@@ -36,6 +36,7 @@
               cmake
               flatcc
               picotool
+              flatbuffers
               local-pico-sdk
               gcc-arm-embedded
             ];

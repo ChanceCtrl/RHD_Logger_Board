@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef LWIPOPTS_H
 #define LWIPOPTS_H
 

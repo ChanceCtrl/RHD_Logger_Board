@@ -1,83 +1,62 @@
-#include <cstdio>
-#include <pico/cyw43_arch.h>
-#include <pico/stdio.h>
+#include <pico/stdlib.h>
+#include <stdio.h>
 
-#include "pico/status_led.h" // libary for simplifying onboard LED usage on Pico W
+#include "ddr_spi.h"
 
-#include "lwip/ip4_addr.h"
-#include "lwip/udp.h"
+#define PIN_SCK 18
+#define PIN_MOSI 19
+#define PIN_MISO 16
 
-#include "rhd_responses_builder.h"
+#define BUF_SIZE 5
 
-#define BEACON_MSG_LEN_MAX 127
+void get_intan(const ddr_spi_inst_t *spi) {
+  static uint32_t txbuf[BUF_SIZE] = {0x40, 0x41, 0x42, 0x43, 0x41};
+  static uint32_t rxbuf[BUF_SIZE];
 
-void build_readwriterespons(flatcc_builder_t *B) {
-  RHDResponses_RawResult_start_as_root(B);
-  RHDResponses_RawResult_timestamp_us_add(B, 10);
-  RHDResponses_RawResult_command_type_add(B,
-                                          RHDCommon_CommandType_ReadRegister);
-  RHDResponses_RawResult_register_add(B, 40);
-  RHDResponses_RawResult_rhd_a_add(B, 63);
-  RHDResponses_RawResult_rhd_b_add(B, 63);
-  RHDResponses_RawResult_end_as_root(B);
+  printf("TX: ");
+  for (int i = 0; i < BUF_SIZE; ++i) {
+    rxbuf[i] = 0;
+    printf(" %02x", (int)txbuf[i]);
+  }
+  printf("\n");
+
+  ddr_spi_write16_read32_blocking(spi, txbuf, rxbuf, BUF_SIZE);
+
+  printf("RX:");
+  for (int i = 0; i < BUF_SIZE; ++i) {
+    printf(" %02x", (int)rxbuf[i]);
+  }
+  printf("\n");
 }
 
 int main() {
   stdio_init_all();
 
-  if (cyw43_arch_init()) {
-    printf("failed to initialise WiFi\n");
-    return 1;
-  }
+  printf("rhd intan start\n");
+  ddr_spi_inst_t spi[2];
 
-  // Initialise led
-  if (!status_led_init_with_context(cyw43_arch_async_context())) {
-    printf("failed to initialise LED");
-    return 1;
-  }
+  float clkdiv = 15.625;
 
-  const char *ap_name = "brace_test";
-  const char *password = "test_brace";
+  // pio_claim_free_sm_and_add_program_for_gpio_range finds a free pio and state
+  // machine for a program and sets the gpio base correctly
+  const uint pin_base = MIN(PIN_SCK, MIN(PIN_MOSI, PIN_MISO));
+  const uint pin_count = MAX(PIN_SCK, MAX(PIN_MOSI, PIN_MISO)) - pin_base + 1;
+  hard_assert(pio_claim_free_sm_and_add_program_for_gpio_range(
+      &ddr_spi_tx_program, &spi[0].pio, &spi[0].sm, &spi[0].offset, pin_base,
+      pin_count, true));
+  hard_assert(pio_claim_free_sm_and_add_program_for_gpio_range(
+      &ddr_spi_rx_program, &spi[1].pio, &spi[1].sm, &spi[1].offset, pin_base,
+      pin_count, true));
 
-  cyw43_arch_enable_ap_mode(ap_name, password, CYW43_AUTH_WPA2_AES_PSK);
-
-  ip4_addr_t target_ip;
-  target_ip.addr = PP_HTONL(LWIP_MAKEU32(192, 168, 4, 2));
-  struct udp_pcb *pcb = udp_new();
-
-  flatcc_builder_t builder;
-  void *buffer;
-  size_t size;
-
-  flatcc_builder_init(&builder);
-
-  build_readwriterespons(&builder);
-  buffer = flatcc_builder_get_direct_buffer(&builder, &size);
-  printf("Size of joe, %i, ", size);
-
-  flatcc_builder_clear(&builder);
-
-  int counter = 0;
   while (true) {
-    // Make the sandwich
-    struct pbuf *p =
-        pbuf_alloc(PBUF_TRANSPORT, BEACON_MSG_LEN_MAX + 1, PBUF_RAM);
-
-    char *req = (char *)p->payload;
-
-    memset(req, 0, BEACON_MSG_LEN_MAX + 1);
-
-    memcpy(req, buffer, size);
-
-    err_t er = udp_sendto(pcb, p, &target_ip, 5005);
-
-    pbuf_free(p);
-
-    if (er != ERR_OK) {
-      printf("Failed to send UDP packet! error=%d", er);
-    } else {
-      printf("Sent packet %d\n", counter);
-      counter++;
+    for (int cpha = 0; cpha <= 1; ++cpha) {
+      for (int cpol = 0; cpol <= 1; ++cpol) {
+        printf("CPHA = %d, CPOL = %d\n", cpha, cpol);
+        ddr_spi_init(spi[cpha].pio, spi[cpha].sm, spi[cpha].offset, clkdiv,
+                     cpha, cpol, PIN_SCK, PIN_MOSI, PIN_MISO);
+        get_intan(&spi[cpha]);
+        sleep_ms(10);
+      }
     }
 
     sleep_ms(1000);
