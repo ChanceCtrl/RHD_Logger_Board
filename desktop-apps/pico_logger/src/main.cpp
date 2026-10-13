@@ -1,64 +1,65 @@
-#include <pico/stdlib.h>
+/**
+ * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#include <pico/stdio_usb.h>
+#include <pico/time.h>
 #include <stdio.h>
 
 #include "ddr_spi.h"
+#include "ddr_spi.pio.h"
+#include "hardware/clocks.h"
+#include "hardware/pio.h"
 
-#define PIN_SCK 18
-#define PIN_MOSI 19
-#define PIN_MISO 16
-
-#define BUF_SIZE 5
-
-void get_intan(const ddr_spi_inst_t *spi) {
-  static uint32_t txbuf[BUF_SIZE] = {0x40, 0x41, 0x42, 0x43, 0x41};
-  static uint32_t rxbuf[BUF_SIZE];
-
-  printf("TX: ");
-  for (int i = 0; i < BUF_SIZE; ++i) {
-    rxbuf[i] = 0;
-    printf(" %02x", (int)txbuf[i]);
-  }
-  printf("\n");
-
-  ddr_spi_write16_read32_blocking(spi, txbuf, rxbuf, BUF_SIZE);
-
-  printf("RX:");
-  for (int i = 0; i < BUF_SIZE; ++i) {
-    printf(" %02x", (int)rxbuf[i]);
-  }
-  printf("\n");
-}
+#define DDR_MOSI_GPIO 19
+#define DDR_SCLK_GPIO 18
+#define DDR_CS_GPIO 17
+#define DDR_MISO_GPIO 16
 
 int main() {
-  stdio_init_all();
+  stdio_usb_init();
 
-  printf("rhd intan start\n");
-  ddr_spi_inst_t spi[2];
+  sleep_ms(1000);
+  printf("Starting in 2 secs....\n");
+  sleep_ms(2000);
 
-  float clkdiv = 15.625;
+  PIO tx_pio, rx_pio;
+  uint tx_sm, rx_sm;
+  uint tx_off, rx_off;
 
-  // pio_claim_free_sm_and_add_program_for_gpio_range finds a free pio and state
-  // machine for a program and sets the gpio base correctly
-  const uint pin_base = MIN(PIN_SCK, MIN(PIN_MOSI, PIN_MISO));
-  const uint pin_count = MAX(PIN_SCK, MAX(PIN_MOSI, PIN_MISO)) - pin_base + 1;
-  hard_assert(pio_claim_free_sm_and_add_program_for_gpio_range(
-      &ddr_spi_tx_program, &spi[0].pio, &spi[0].sm, &spi[0].offset, pin_base,
-      pin_count, true));
-  hard_assert(pio_claim_free_sm_and_add_program_for_gpio_range(
-      &ddr_spi_rx_program, &spi[1].pio, &spi[1].sm, &spi[1].offset, pin_base,
-      pin_count, true));
+  // Find a free PIO and state machine and add the program
+  bool rc = pio_claim_free_sm_and_add_program_for_gpio_range(
+      &spi_ddr_tx_sclk_program, &tx_pio, &tx_sm, &tx_off, DDR_SCLK_GPIO, 2,
+      true);
+  hard_assert(rc);
+  printf("Loaded TX program at %u on pio %u, sm:%u\n", tx_off, PIO_NUM(tx_pio),
+         tx_sm);
+
+  rc = pio_claim_free_sm_and_add_program_for_gpio_range(
+      &spi_ddr_rx_cs_program, &rx_pio, &rx_sm, &rx_off, DDR_MISO_GPIO, 2, true);
+  hard_assert(rc);
+  printf("Loaded RX program at %u on pio %u, sm:%u\n", rx_off, PIO_NUM(rx_pio),
+         rx_sm);
+
+  // Start the SMs and get a fella to hold everything in one place
+  ddr_spi_inst_t fella =
+      ddr_spi_init(tx_pio, rx_pio, tx_sm, tx_off, rx_sm, rx_off, DDR_MOSI_GPIO,
+                   DDR_MISO_GPIO, DDR_CS_GPIO, DDR_SCLK_GPIO);
 
   while (true) {
-    for (int cpha = 0; cpha <= 1; ++cpha) {
-      for (int cpol = 0; cpol <= 1; ++cpol) {
-        printf("CPHA = %d, CPOL = %d\n", cpha, cpol);
-        ddr_spi_init(spi[cpha].pio, spi[cpha].sm, spi[cpha].offset, clkdiv,
-                     cpha, cpol, PIN_SCK, PIN_MOSI, PIN_MISO);
-        get_intan(&spi[cpha]);
-        sleep_ms(10);
-      }
-    }
+    printf("Getting I?\n");
+    uint32_t tx_buffer[5] = {0x0017, 0xE900, 0xEA00, 0xEB00, 0xE900};
+    // uint32_t tx_buffer[5] = {0x00FB, 0xE900, 0xEA00, 0xEB00, 0xE900};
+    uint32_t rx_buffer[5];
 
+    ddr_transact(&fella, tx_buffer, rx_buffer, 1);
+
+    for (int i = 0; i < 1; i++) {
+      printf("Sent %u, got %u\n", tx_buffer[i], rx_buffer[i]);
+      sleep_ms(100);
+    }
     sleep_ms(1000);
   }
 }

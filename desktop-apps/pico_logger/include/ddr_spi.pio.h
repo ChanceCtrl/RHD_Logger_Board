@@ -14,95 +14,99 @@
 #define __pio_const const
 #endif
 
-// ---------- //
-// ddr_spi_tx //
-// ---------- //
+// --------------- //
+// spi_ddr_tx_sclk //
+// --------------- //
 
-#define ddr_spi_tx_wrap_target 0
-#define ddr_spi_tx_wrap 9
-#define ddr_spi_tx_pio_version 0
+#define spi_ddr_tx_sclk_wrap_target 0
+#define spi_ddr_tx_sclk_wrap 12
+#define spi_ddr_tx_sclk_pio_version 1
 
-static __pio_const uint16_t ddr_spi_tx_program_instructions[] = {
-    //     .wrap_target
-    0x90a0, //  0: pull   block           side 1
-    0xf02f, //  1: set    x, 15           side 1
-    0xe100, //  2: set    pins, 0         side 0 [1]
-    0x6101, //  3: out    pins, 1         side 0 [1]
-    0xb242, //  4: nop                    side 1 [2]
-    0x0043, //  5: jmp    x--, 3          side 0
-    0xa142, //  6: nop                    side 0 [1]
-    0xef01, //  7: set    pins, 1         side 0 [15]
-    0xaf42, //  8: nop                    side 0 [15]
-    0xa242, //  9: nop                    side 0 [2]
+static __pio_const uint16_t spi_ddr_tx_sclk_program_instructions[] = {
+            //     .wrap_target
+    0xe02e, //  0: set    x, 14           side 0
+    0x80a0, //  1: pull   block           side 0
+    0xc000, //  2: irq    nowait 0        side 0
+    0x20c1, //  3: wait   1 irq, 1        side 0
+    0xc041, //  4: irq    clear 1         side 0
+    0x6201, //  5: out    pins, 1         side 0 [2]
+    0xb242, //  6: nop                    side 1 [2]
+    0x6001, //  7: out    pins, 1         side 0
+    0xc000, //  8: irq    nowait 0        side 0
+    0xb242, //  9: nop                    side 1 [2]
+    0xd000, // 10: irq    nowait 0        side 1
+    0x0047, // 11: jmp    x--, 7          side 0
+    0xc000, // 12: irq    nowait 0        side 0
             //     .wrap
 };
 
 #if !PICO_NO_HARDWARE
-static __pio_const struct pio_program ddr_spi_tx_program = {
-    .instructions = ddr_spi_tx_program_instructions,
-    .length = 10,
+static __pio_const struct pio_program spi_ddr_tx_sclk_program = {
+    .instructions = spi_ddr_tx_sclk_program_instructions,
+    .length = 13,
     .origin = -1,
-    .pio_version = ddr_spi_tx_pio_version,
+    .pio_version = spi_ddr_tx_sclk_pio_version,
 #if PICO_PIO_VERSION > 0
     .used_gpio_ranges = 0x0
 #endif
 };
 
-static inline pio_sm_config ddr_spi_tx_program_get_default_config(uint offset) {
-  pio_sm_config c = pio_get_default_sm_config();
-  sm_config_set_wrap(&c, offset + ddr_spi_tx_wrap_target,
-                     offset + ddr_spi_tx_wrap);
-  sm_config_set_sideset(&c, 1, false, false);
-  return c;
+static inline pio_sm_config spi_ddr_tx_sclk_program_get_default_config(uint offset) {
+    pio_sm_config c = pio_get_default_sm_config();
+    sm_config_set_wrap(&c, offset + spi_ddr_tx_sclk_wrap_target, offset + spi_ddr_tx_sclk_wrap);
+    sm_config_set_sideset(&c, 1, false, false);
+    return c;
 }
 #endif
 
-// ---------- //
-// ddr_spi_rx //
-// ---------- //
+// ------------- //
+// spi_ddr_rx_cs //
+// ------------- //
 
-#define ddr_spi_rx_wrap_target 0
-#define ddr_spi_rx_wrap 17
-#define ddr_spi_rx_pio_version 0
+#define spi_ddr_rx_cs_wrap_target 0
+#define spi_ddr_rx_cs_wrap 18
+#define spi_ddr_rx_cs_pio_version 1
 
-static __pio_const uint16_t ddr_spi_rx_program_instructions[] = {
-    //     .wrap_target
-    0x2000, //  0: wait   0 gpio, 0
-    0x2180, //  1: wait   1 gpio, 0              [1]
-    0x4061, //  2: in     null, 1
-    0x2100, //  3: wait   0 gpio, 0              [1]
-    0x4001, //  4: in     pins, 1
-    0xe02e, //  5: set    x, 14
-    0x2180, //  6: wait   1 gpio, 0              [1]
-    0x4001, //  7: in     pins, 1
-    0x2100, //  8: wait   0 gpio, 0              [1]
-    0x4001, //  9: in     pins, 1
-    0x0046, // 10: jmp    x--, 6
-    0x2180, // 11: wait   1 gpio, 0              [1]
-    0x4001, // 12: in     pins, 1
-    0x2100, // 13: wait   0 gpio, 0              [1]
-    0x4001, // 14: in     pins, 1
-    0x2180, // 15: wait   1 gpio, 0              [1]
-    0x4001, // 16: in     pins, 1
-    0x8020, // 17: push   block
+static __pio_const uint16_t spi_ddr_rx_cs_program_instructions[] = {
+            //     .wrap_target
+    0xf04e, //  0: set    y, 14           side 1
+    0x30c0, //  1: wait   1 irq, 0        side 1
+    0xd040, //  2: irq    clear 0         side 1
+    0xa242, //  3: nop                    side 0 [2]
+    0xc001, //  4: irq    nowait 1        side 0
+    0x20c0, //  5: wait   1 irq, 0        side 0
+    0xc040, //  6: irq    clear 0         side 0
+    0x4001, //  7: in     pins, 1         side 0
+    0x20c0, //  8: wait   1 irq, 0        side 0
+    0xc040, //  9: irq    clear 0         side 0
+    0x4001, // 10: in     pins, 1         side 0
+    0x0085, // 11: jmp    y--, 5          side 0
+    0x20c0, // 12: wait   1 irq, 0        side 0
+    0xc040, // 13: irq    clear 0         side 0
+    0x4001, // 14: in     pins, 1         side 0
+    0xb342, // 15: nop                    side 1 [3]
+    0x5001, // 16: in     pins, 1         side 1
+    0xbf42, // 17: nop                    side 1 [15]
+    0x9020, // 18: push   block           side 1
             //     .wrap
 };
 
 #if !PICO_NO_HARDWARE
-static __pio_const struct pio_program ddr_spi_rx_program = {
-    .instructions = ddr_spi_rx_program_instructions,
-    .length = 18,
+static __pio_const struct pio_program spi_ddr_rx_cs_program = {
+    .instructions = spi_ddr_rx_cs_program_instructions,
+    .length = 19,
     .origin = -1,
-    .pio_version = ddr_spi_rx_pio_version,
+    .pio_version = spi_ddr_rx_cs_pio_version,
 #if PICO_PIO_VERSION > 0
-    .used_gpio_ranges = 0x1
+    .used_gpio_ranges = 0x0
 #endif
 };
 
-static inline pio_sm_config ddr_spi_rx_program_get_default_config(uint offset) {
-  pio_sm_config c = pio_get_default_sm_config();
-  sm_config_set_wrap(&c, offset + ddr_spi_rx_wrap_target,
-                     offset + ddr_spi_rx_wrap);
-  return c;
+static inline pio_sm_config spi_ddr_rx_cs_program_get_default_config(uint offset) {
+    pio_sm_config c = pio_get_default_sm_config();
+    sm_config_set_wrap(&c, offset + spi_ddr_rx_cs_wrap_target, offset + spi_ddr_rx_cs_wrap);
+    sm_config_set_sideset(&c, 1, false, false);
+    return c;
 }
 #endif
+

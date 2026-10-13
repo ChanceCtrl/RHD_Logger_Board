@@ -1,79 +1,87 @@
-.pio_version 0 // only requires PIO version 0
+; /----------------------------\
+; | Joe TX and SCLK control SM |
+; \----------------------------/
+.program spi_ddr_tx_sclk
+.side_set 1 ; Allow us to write sclk on side instructions
 
-.program ddr_spi_tx
-.side_set 1
+.wrap_target ; Loop from this point
+    ; Reset the bit counter and lower sclk
+    set x, 14 side 0 ; we only use 16 bits for TX, and 1 of them isnt in the bitloop
 
-.wrap_target
-    ; Wait for a 32-bit long input fella
-    pull block side 1
+    ; Wait for the next word
+    pull block side 0
 
-    ; We only care about the lower 16 bits
-    set x, 15 side 1
+    ; We got data, notify rx_cs and wait for it to say its ready
+    irq 0 side 0
+    wait irq 1 side 0 ; should take 26.66ns to get past here, setting irq 0, rx_cs logic, and then this wait
+    irq clear 1 side 0 ; Reset the irq for the next loop
 
-    ; Now start, and wait an additional clock cycle
-    set pins, 0 side 0 [1]
+    ; Cool, the rx_cs is ready and has CS low, now set the first bit
+    out pins, 1 side 0 [4]; Write to TX 1 bit from block, and wait 2 cycles
 
+    ; We need 1 pulse of sclk before we start doing work
+    nop side 1 [4] ; Set sclk high for 20ns
+
+    ; The loop for the transmit logic
 bitloop:
-    ; MOSI changes while sclk is low
-    out pins, 1 side 0 [1]
+    ; MOSI changes while sclk is low, so set it low and write the next bit
+    out pins, 1 side 0
+    irq 0 side 0 ; Tell the rx SM that sclk is low
 
-    ; Wait for 3 PIO clock cycles
-    nop side 1 [2]
+    ; Wait for 3 PIO clock cycles, then write sclk high again
+    nop side 1 [4] ; This should take 20ns
+    irq 0 side 1 ; Tell the rx SM that sclk is high
 
+    ; Jump back to bitloop and count down 1 bit
     jmp x-- bitloop side 0
 
-    ; -- Only after the 16th edge --
-    ; Wait another 2 cycles
-    nop side 0 [1]
-
-    ; Get B0 and then do the t_csoff wait
-    set pins, 1 side 0 [15] ; 16 cycles
-    nop side 0 [15] ; 16 cycles, 32 total
-    nop side 0 [2] ; 3 cycles, 35 total
-
-.wrap
+    irq 0 side 0;
+.wrap ; Jump back to the start of the program
 
 
-.program ddr_spi_rx
+
+; /--------------------------\
+; | Joe RX and CS control SM |
+; \--------------------------/
+.program spi_ddr_rx_cs
+.side_set 1 ; Allow us to write cs on side instructions
+
 .wrap_target
+    ; Reset our counter and set CS high again
+    set y, 14 side 1
 
-wait_cs_low:
-    wait 0 gpio 0
+    ; Wait for the tx_sclk SM to trigger us
+    wait irq 0 side 1
+    irq clear 0 side 1 ; Reset the irq for the next loop
 
-    ; The first edge has no data
-    wait 1 gpio 0 [1]
-    in null, 1
+    ; Lower the CS line for t_cs1 (20.8ns) to start the transaction and tell tx_sclk
+    nop side 0 [4]; takes 13.33ns
+    irq 1 side 0 ; takes 6.66ns 
 
-    ; A15
-    wait 0 gpio 0 [1]
-    in pins, 1
+bitloop:
+    wait irq 0 side 0 ; Wait till sclk is low
+    irq clear 0 side 0
 
-    ; 15 more loops to go
-    set x, 14
+    in pins, 1 side 0 ; This should be A_X
 
-bitloop: 
-    wait 1 gpio 0 [1]
-    in pins, 1 ; RHD_B bit X
+    wait irq 0 side 0 ; wait till sclk is high
+    irq clear 0 side 0
 
-    wait 0 gpio 0 [1]
-    in pins, 1 ; RHD_A bit X-1
+    in pins, 1 side 0 ; This should be B_X
 
-    jmp x-- bitloop
+    ; Jump back to bitloop and count down 1 bit
+    jmp y-- bitloop side 0
 
-    ; Final bits
+    wait irq 0 side 0
+    irq clear 0 side 0
 
-    wait 1 gpio 0 [1]
-    in pins, 1 ; RHD_B bit 1
+    in pins, 1 side 0 ; This should be A_0
 
-    wait 0 gpio 0 [1]
-    in pins, 1 ; RHD_A bit 0
+    nop side 1 [6] ; This should take 20ns, and is t_cs2
+    in pins, 1 side 1 ; This should be B_0 and the final bit
 
-    ; CS should be rising 
 
-    wait 1 gpio 0 [1]
-    in pins, 1 ; RHD_B bit 0
-
-    ; We have a full frame, congrats
-    push block
-
-.wrap
+    ; Wait for the minimum t_cs_off time (154 nanoseconds), and push the data out
+    nop side 1 [15] ; 100ns
+    push block side 1
+.wrap ; Jump back to the start of the program
