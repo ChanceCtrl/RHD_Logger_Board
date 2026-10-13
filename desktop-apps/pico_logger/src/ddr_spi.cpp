@@ -23,17 +23,17 @@ ddr_spi_inst_t ddr_spi_init(PIO tx_pio, PIO rx_pio, uint tx_sm, uint tx_offset,
 
   pio_sm_config rx_conf = spi_ddr_rx_cs_program_get_default_config(rx_offset);
 
-  // Change from LSB to MSB first
-  sm_config_set_out_shift(&tx_conf, false, true, 16);
-
-  sm_config_set_in_shift(&rx_conf, false, true, 32);
-
   // This ties the pins to the right pin drivers
   sm_config_set_out_pins(&tx_conf, mosi_pin, 1);
   sm_config_set_sideset_pins(&tx_conf, sclk_pin);
 
   sm_config_set_in_pins(&rx_conf, miso_pin);
   sm_config_set_sideset_pins(&rx_conf, cs_pin);
+
+  // Change from LSB to MSB first
+  sm_config_set_out_shift(&tx_conf, false, false, 16);
+
+  sm_config_set_in_shift(&rx_conf, false, false, 32);
 
   // Loads everything
   pio_sm_init(tx_pio, tx_sm, tx_offset, &tx_conf);
@@ -74,6 +74,6 @@ void ddr_transact(const ddr_spi_inst_t *ddr, uint16_t *src, uint32_t *dst,
       *dst++ = *rxfifo;
       --rx_remain;
     }
-    sleep_ms(1);
+    sleep_ms(10);
   }
 }
