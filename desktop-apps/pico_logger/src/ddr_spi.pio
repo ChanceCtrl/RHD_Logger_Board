@@ -26,7 +26,7 @@
 bitloop:
     ; MOSI changes while sclk is low, so set it low and write the next bit
     out pins, 1 side 0
-    irq 0 side 0 ; Tell the rx SM that sclk is low
+    irq 0 side 0 [4] ; Tell the rx SM that sclk is low
 
     ; Wait for 3 PIO clock cycles, then write sclk high again
     nop side 1 [4] ; This should take 20ns

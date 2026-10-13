@@ -18,6 +18,17 @@
 #define DDR_CS_GPIO 17
 #define DDR_MISO_GPIO 16
 
+uint16_t extract_rhd_b_bits(uint32_t x) {
+  x &= 0x55555555u;
+  x = (x | (x >> 1)) & 0x33333333u;
+  x = (x | (x >> 2)) & 0x0F0F0F0Fu;
+  x = (x | (x >> 4)) & 0x00FF00FFu;
+  x = (x | (x >> 8)) & 0x0000FFFFu;
+  return (uint16_t)x;
+}
+
+uint16_t extract_rhd_a_bits(uint32_t x) { return extract_rhd_b_bits(x >> 1); }
+
 int main() {
   stdio_usb_init();
 
@@ -49,17 +60,19 @@ int main() {
                    DDR_MISO_GPIO, DDR_CS_GPIO, DDR_SCLK_GPIO);
 
   while (true) {
-    printf("Getting I?\n");
-    uint32_t tx_buffer[5] = {0x0017, 0xE900, 0xEA00, 0xEB00, 0xE900};
-    // uint32_t tx_buffer[5] = {0x00FB, 0xE900, 0xEA00, 0xEB00, 0xE900};
+    uint16_t tx_buffer[5] = {0xEB00, 0xE900, 0xE800, 0xE900, 0xEA00};
+    // uint16_t tx_buffer[5] = {0x00FB, 0xE900, 0xEA00, 0xEB00, 0xE900};
     uint32_t rx_buffer[5];
+    uint16_t rhd_a, rhd_b;
 
-    ddr_transact(&fella, tx_buffer, rx_buffer, 1);
+    ddr_transact(&fella, tx_buffer, rx_buffer, 5);
 
-    for (int i = 0; i < 1; i++) {
-      printf("Sent %u, got %u\n", tx_buffer[i], rx_buffer[i]);
-      sleep_ms(100);
+    for (int i = 0; i < 5; i++) {
+      rhd_a = extract_rhd_a_bits(rx_buffer[i]);
+      rhd_b = extract_rhd_b_bits(rx_buffer[i]);
+      printf("Sent %u, got rhd_a: %u\trhd_b: %u\n", tx_buffer[i], rhd_a, rhd_b);
     }
+
     sleep_ms(1000);
   }
 }

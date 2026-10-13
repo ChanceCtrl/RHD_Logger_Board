@@ -16,5 +16,5 @@ ddr_spi_inst_t ddr_spi_init(PIO tx_pio, PIO rx_pio, uint tx_sm, uint tx_offset,
                             uint rx_sm, uint rx_offset, uint mosi_pin,
                             uint miso_pin, uint cs_pin, uint sclk_pin);
 
-void ddr_transact(const ddr_spi_inst_t *ddr, uint32_t *src, uint32_t *dst,
+void ddr_transact(const ddr_spi_inst_t *ddr, uint16_t *src, uint32_t *dst,
                   size_t len);
