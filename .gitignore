@@ -1,10 +1,13 @@
 .pio
-/vhdl/arty_a7_100t/arty_a7_100t.runs
-/vhdl/arty_a7_100t/arty_a7_100t.cache/wt
-/vhdl/apio_compat/**/_build
-/python-app/logger/target
-/desktop-apps/logger/target
+/**/arty_a7_100t/arty_a7_100t.runs
+/**/arty_a7_100t/arty_a7_100t.cache/wt
+/**/apio_compat/**/_build
+/**/python-app/logger/target
+/**/logger/target
 *.CSV
+*.csv
+*.mcap
+/firmware/build
 
 # For PCBs designed using KiCad: https://www.kicad.org/
 # Format documentation: https://kicad.org/help/file-formats/
@@ -49,4 +52,3 @@ fp-info-cache
 
 # Local project settings
 *.kicad_prl
-/firmware/build

@@ -4,7 +4,7 @@ This repo is meant to be an all inclusive logging + info thing for making the RH
 ### info
 On the tin, contains more info related to the project, pictures, pdfs, write-ups etc.
 
-### vhdl
+### firmware
 This folder contains all the vivado/VHDL related stuff for getting a working interface for talking with the [[rhd2164]] to the [[python-app]].
 
 ### python-app
