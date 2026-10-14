@@ -5,17 +5,10 @@ This repo is meant to be an all inclusive logging + info thing for making the RH
 On the tin, contains more info related to the project, pictures, pdfs, write-ups etc.
 
 ### firmware
-This folder contains all the vivado/VHDL related stuff for getting a working interface for talking with the [[rhd2164]] to the [[python-app]].
+Contains all the RP235XX code to talk with the RHD and act as a webserver for it
 
-### python-app
-A UV managed python app (who would've guessed) that is meant to handle logging info from the RHD2164 into whatever format.
+### apps
+This holds any apps written for basic tests or logging utilities, most likely some python scripts managed by uv
 
 # Oh btw
 The root of this repo is also an obsidian vault, and that is the intended way to view this README and any of the other .md files.
-
-# TODO
-- [ ] RHD DDR receive logic
-- [ ] RHD transmit logic
-- [ ] RHD Register system in VHDL
-- [ ] Basic python app
-- [ ] Try a real-time capture
