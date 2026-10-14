@@ -59,20 +59,32 @@ int main() {
       ddr_spi_init(tx_pio, rx_pio, tx_sm, tx_off, rx_sm, rx_off, DDR_MOSI_GPIO,
                    DDR_MISO_GPIO, DDR_CS_GPIO, DDR_SCLK_GPIO);
 
+  uint16_t counter = 0;
   while (true) {
-    // uint16_t tx_buffer[5] = {0xEB00, 0xE900, 0xE800, 0xE900, 0xEA00};
-    uint16_t tx_buffer[5] = {0xFB00, 0xE900, 0xEA00, 0xEB00, 0xE900};
+    uint16_t tx_buffer[5] = {0xEB00, 0xE900, 0xE800, 0xE900, 0xEA00};
+    // uint16_t tx_buffer[5] = {0xFB00, 0xE900, 0xEA00, 0xEB00, 0xE900};
     uint32_t rx_buffer[5];
     uint16_t rhd_a, rhd_b;
 
-    ddr_transact(&fella, tx_buffer, rx_buffer, 1);
+    ddr_transact(&fella, tx_buffer, rx_buffer, 5);
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 5; i++) {
       rhd_a = extract_rhd_a_bits(rx_buffer[i]);
       rhd_b = extract_rhd_b_bits(rx_buffer[i]);
-      printf("Sent %u, got rhd_a: %u\trhd_b: %u\n", tx_buffer[i], rhd_a, rhd_b);
+
+      if (rhd_a != rhd_b) {
+        printf("Failed a transact\n");
+      }
+
+      if (counter == 50000) {
+        counter = 0;
+        printf("sent: %u, got rhd_a: %u\trhd_b: %u\n", tx_buffer[i], rhd_a,
+               rhd_b);
+      } else {
+        counter++;
+      }
     }
 
-    sleep_ms(1000);
+    sleep_us(15);
   }
 }

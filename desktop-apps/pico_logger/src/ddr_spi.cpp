@@ -74,6 +74,5 @@ void ddr_transact(const ddr_spi_inst_t *ddr, uint16_t *src, uint32_t *dst,
       *dst++ = *rxfifo;
       --rx_remain;
     }
-    sleep_ms(10);
   }
 }
