@@ -1,7 +1,21 @@
-# RHD_Logger_Board
+# Overview
+This repo is meant to be an all inclusive logging + info thing for making the RHD2164 do actual work, it is currently broken into 3 major folders
 
-Four LVDS drivers plus one LVDS receiver
-[SN65LVDT41PW](https://www.ti.com/lit/ds/symlink/sn65lvdt41.pdf?ts=1775498826103&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65LVDT41%252Fpart-details%252FSN65LVDT41PW)
+### info
+On the tin, contains more info related to the project, pictures, pdfs, write-ups etc.
 
-Single receiver
-[SN65LVDT2DBVR](https://www.ti.com/lit/ds/symlink/sn65lvdt2.pdf?ts=1775498911484&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FSN65LVDT2%252Fpart-details%252FSN65LVDT2DBVR)
+### vhdl
+This folder contains all the vivado/VHDL related stuff for getting a working interface for talking with the [[rhd2164]] to the [[python-app]].
+
+### python-app
+A UV managed python app (who would've guessed) that is meant to handle logging info from the RHD2164 into whatever format.
+
+# Oh btw
+The root of this repo is also an obsidian vault, and that is the intended way to view this README and any of the other .md files.
+
+# TODO
+- [ ] RHD DDR receive logic
+- [ ] RHD transmit logic
+- [ ] RHD Register system in VHDL
+- [ ] Basic python app
+- [ ] Try a real-time capture

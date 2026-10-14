@@ -1,0 +1,22 @@
+[*] GTKWave display configuration for 'apio sim uart_handler/UART_tb.sv'
+[*] THIS FILE WAS GENERATED AUTOMATICALLY BY APIO.
+[*] DO NOT EDIT IT MANUALLY!
+[*] To customize this file, run 'apio sim uart_handler/UART_tb.sv'
+[*] and save the file from GTKWave.
+
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+
+[*]
+UART_tb.BAUD_CLK_TICKS
+UART_tb.clk
+UART_tb.CLK_PERIOD_NS
+UART_tb.data_in[7:0]
+UART_tb.data_out[7:0]
+UART_tb.reset
+UART_tb.rx_done
+UART_tb.tests_failed[31:0]
+UART_tb.tests_received[31:0]
+UART_tb.tests_sent[31:0]
+UART_tb.tx_line
+UART_tb.tx_ready
+UART_tb.tx_start

@@ -1,0 +1,92 @@
+include "rhd_common.fbs";
+
+namespace RHDResponses;
+
+table RawResult {
+  timestamp_us:uint64 = 0;
+  command_type:RHDCommon.CommandType = 0;
+  register:uint8 = 0;
+  rhd_a:uint8 = 0;
+  rhd_b:uint8 = 0;
+}
+
+table CalibrateResult {
+  calibration_done:bool = 0;
+}
+
+table ReadWriteResult {
+  timestamp_us:uint64 = 0;
+  command_type:RHDCommon.CommandType = 4;
+  register:uint8 = 0;
+  rhd_a:uint8 = 0;
+  rhd_b:uint8 = 0;
+}
+
+table ConversionResult {
+  time_conv_start_us:uint64 = 0;
+  time_conv_end_us:uint64 = 0;
+  channel_00:uint16 = 0;
+  channel_01:uint16 = 0;
+  channel_02:uint16 = 0;
+  channel_03:uint16 = 0;
+  channel_04:uint16 = 0;
+  channel_05:uint16 = 0;
+  channel_06:uint16 = 0;
+  channel_07:uint16 = 0;
+  channel_08:uint16 = 0;
+  channel_09:uint16 = 0;
+  channel_10:uint16 = 0;
+  channel_11:uint16 = 0;
+  channel_12:uint16 = 0;
+  channel_13:uint16 = 0;
+  channel_14:uint16 = 0;
+  channel_15:uint16 = 0;
+  channel_16:uint16 = 0;
+  channel_17:uint16 = 0;
+  channel_18:uint16 = 0;
+  channel_19:uint16 = 0;
+  channel_20:uint16 = 0;
+  channel_21:uint16 = 0;
+  channel_22:uint16 = 0;
+  channel_23:uint16 = 0;
+  channel_24:uint16 = 0;
+  channel_25:uint16 = 0;
+  channel_26:uint16 = 0;
+  channel_27:uint16 = 0;
+  channel_28:uint16 = 0;
+  channel_29:uint16 = 0;
+  channel_30:uint16 = 0;
+  channel_31:uint16 = 0;
+  channel_32:uint16 = 0;
+  channel_33:uint16 = 0;
+  channel_34:uint16 = 0;
+  channel_35:uint16 = 0;
+  channel_36:uint16 = 0;
+  channel_37:uint16 = 0;
+  channel_38:uint16 = 0;
+  channel_39:uint16 = 0;
+  channel_40:uint16 = 0;
+  channel_41:uint16 = 0;
+  channel_42:uint16 = 0;
+  channel_43:uint16 = 0;
+  channel_44:uint16 = 0;
+  channel_45:uint16 = 0;
+  channel_46:uint16 = 0;
+  channel_47:uint16 = 0;
+  channel_48:uint16 = 0;
+  channel_49:uint16 = 0;
+  channel_50:uint16 = 0;
+  channel_51:uint16 = 0;
+  channel_52:uint16 = 0;
+  channel_53:uint16 = 0;
+  channel_54:uint16 = 0;
+  channel_55:uint16 = 0;
+  channel_56:uint16 = 0;
+  channel_57:uint16 = 0;
+  channel_58:uint16 = 0;
+  channel_59:uint16 = 0;
+  channel_60:uint16 = 0;
+  channel_61:uint16 = 0;
+  channel_62:uint16 = 0;
+  channel_63:uint16 = 0;
+}

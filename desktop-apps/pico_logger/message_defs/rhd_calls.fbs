@@ -1,0 +1,151 @@
+include "rhd_common.fbs";
+
+namespace RHDCalls;
+
+table RawCommand {
+  command_type:RHDCommon.CommandType = 0;
+  register:uint8 = 0;
+  data:uint8 = 0;
+}
+
+table CalibrateCommand {
+  clear_calibration:bool = 1;
+}
+
+table ReadWriteCommand {
+  write_register:bool = 0;
+  register:uint8 = 0;
+  data:uint8 = 0;
+}
+
+table ConversionCommand {
+  convert_channel_00:bool = 1;
+  convert_channel_01:bool = 1;
+  convert_channel_02:bool = 1;
+  convert_channel_03:bool = 1;
+  convert_channel_04:bool = 1;
+  convert_channel_05:bool = 1;
+  convert_channel_06:bool = 1;
+  convert_channel_07:bool = 1;
+  convert_channel_08:bool = 1;
+  convert_channel_09:bool = 1;
+  convert_channel_10:bool = 1;
+  convert_channel_11:bool = 1;
+  convert_channel_12:bool = 1;
+  convert_channel_13:bool = 1;
+  convert_channel_14:bool = 1;
+  convert_channel_15:bool = 1;
+  convert_channel_16:bool = 1;
+  convert_channel_17:bool = 1;
+  convert_channel_18:bool = 1;
+  convert_channel_19:bool = 1;
+  convert_channel_20:bool = 1;
+  convert_channel_21:bool = 1;
+  convert_channel_22:bool = 1;
+  convert_channel_23:bool = 1;
+  convert_channel_24:bool = 1;
+  convert_channel_25:bool = 1;
+  convert_channel_26:bool = 1;
+  convert_channel_27:bool = 1;
+  convert_channel_28:bool = 1;
+  convert_channel_29:bool = 1;
+  convert_channel_30:bool = 1;
+  convert_channel_31:bool = 1;
+  convert_channel_32:bool = 1;
+  convert_channel_33:bool = 1;
+  convert_channel_34:bool = 1;
+  convert_channel_35:bool = 1;
+  convert_channel_36:bool = 1;
+  convert_channel_37:bool = 1;
+  convert_channel_38:bool = 1;
+  convert_channel_39:bool = 1;
+  convert_channel_40:bool = 1;
+  convert_channel_41:bool = 1;
+  convert_channel_42:bool = 1;
+  convert_channel_43:bool = 1;
+  convert_channel_44:bool = 1;
+  convert_channel_45:bool = 1;
+  convert_channel_46:bool = 1;
+  convert_channel_47:bool = 1;
+  convert_channel_48:bool = 1;
+  convert_channel_49:bool = 1;
+  convert_channel_50:bool = 1;
+  convert_channel_51:bool = 1;
+  convert_channel_52:bool = 1;
+  convert_channel_53:bool = 1;
+  convert_channel_54:bool = 1;
+  convert_channel_55:bool = 1;
+  convert_channel_56:bool = 1;
+  convert_channel_57:bool = 1;
+  convert_channel_58:bool = 1;
+  convert_channel_59:bool = 1;
+  convert_channel_60:bool = 1;
+  convert_channel_61:bool = 1;
+  convert_channel_62:bool = 1;
+  convert_channel_63:bool = 1;
+
+  channel_00_reset_highpass:bool = 0;
+  channel_01_reset_highpass:bool = 0;
+  channel_02_reset_highpass:bool = 0;
+  channel_03_reset_highpass:bool = 0;
+  channel_04_reset_highpass:bool = 0;
+  channel_05_reset_highpass:bool = 0;
+  channel_06_reset_highpass:bool = 0;
+  channel_07_reset_highpass:bool = 0;
+  channel_08_reset_highpass:bool = 0;
+  channel_09_reset_highpass:bool = 0;
+  channel_10_reset_highpass:bool = 0;
+  channel_11_reset_highpass:bool = 0;
+  channel_12_reset_highpass:bool = 0;
+  channel_13_reset_highpass:bool = 0;
+  channel_14_reset_highpass:bool = 0;
+  channel_15_reset_highpass:bool = 0;
+  channel_16_reset_highpass:bool = 0;
+  channel_17_reset_highpass:bool = 0;
+  channel_18_reset_highpass:bool = 0;
+  channel_19_reset_highpass:bool = 0;
+  channel_20_reset_highpass:bool = 0;
+  channel_21_reset_highpass:bool = 0;
+  channel_22_reset_highpass:bool = 0;
+  channel_23_reset_highpass:bool = 0;
+  channel_24_reset_highpass:bool = 0;
+  channel_25_reset_highpass:bool = 0;
+  channel_26_reset_highpass:bool = 0;
+  channel_27_reset_highpass:bool = 0;
+  channel_28_reset_highpass:bool = 0;
+  channel_29_reset_highpass:bool = 0;
+  channel_30_reset_highpass:bool = 0;
+  channel_31_reset_highpass:bool = 0;
+  channel_32_reset_highpass:bool = 0;
+  channel_33_reset_highpass:bool = 0;
+  channel_34_reset_highpass:bool = 0;
+  channel_35_reset_highpass:bool = 0;
+  channel_36_reset_highpass:bool = 0;
+  channel_37_reset_highpass:bool = 0;
+  channel_38_reset_highpass:bool = 0;
+  channel_39_reset_highpass:bool = 0;
+  channel_40_reset_highpass:bool = 0;
+  channel_41_reset_highpass:bool = 0;
+  channel_42_reset_highpass:bool = 0;
+  channel_43_reset_highpass:bool = 0;
+  channel_44_reset_highpass:bool = 0;
+  channel_45_reset_highpass:bool = 0;
+  channel_46_reset_highpass:bool = 0;
+  channel_47_reset_highpass:bool = 0;
+  channel_48_reset_highpass:bool = 0;
+  channel_49_reset_highpass:bool = 0;
+  channel_50_reset_highpass:bool = 0;
+  channel_51_reset_highpass:bool = 0;
+  channel_52_reset_highpass:bool = 0;
+  channel_53_reset_highpass:bool = 0;
+  channel_54_reset_highpass:bool = 0;
+  channel_55_reset_highpass:bool = 0;
+  channel_56_reset_highpass:bool = 0;
+  channel_57_reset_highpass:bool = 0;
+  channel_58_reset_highpass:bool = 0;
+  channel_59_reset_highpass:bool = 0;
+  channel_60_reset_highpass:bool = 0;
+  channel_61_reset_highpass:bool = 0;
+  channel_62_reset_highpass:bool = 0;
+  channel_63_reset_highpass:bool = 0;
+}
