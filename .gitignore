@@ -49,4 +49,4 @@ fp-info-cache
 
 # Local project settings
 *.kicad_prl
-/desktop-apps/pico_logger/build
+/firmware/build
