@@ -49,9 +49,15 @@ int main() {
       ddr_spi_init(tx_pio, rx_pio, tx_sm, tx_off, rx_sm, rx_off, DDR_MOSI_GPIO,
                    DDR_MISO_GPIO, DDR_CS_GPIO, DDR_SCLK_GPIO);
 
-  rhd_2164_obj_t rhd = init_rhd(&fella);
+  rhd_2164_obj_t rhd = rhd_2164_obj(&fella);
+  rhd.calibrate_rhd();
+
+  uint16_t in_all[64];
 
   while (true) {
-    sleep_us(15);
+    rhd.convert_all(in_all);
+    printf("%u\n", in_all[46]);
+
+    sleep_ms(1);
   }
 }

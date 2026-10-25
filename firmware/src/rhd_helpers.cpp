@@ -3,7 +3,7 @@
 
 #define CALIBRATE_RHD_COMMAND_LEN 10
 #define READ_WRITE_RHD_COMMAND_LEN 3
-#define CONVERT_ALL_RHD_COMMAND_LEN 66
+#define CONVERT_ALL_RHD_COMMAND_LEN 34
 
 uint16_t extract_rhd_b_bits(uint32_t x) {
   x &= 0x55555555u;
@@ -32,10 +32,38 @@ void rhd_2164_obj::calibrate_rhd() {
                CALIBRATE_RHD_COMMAND_LEN);
 }
 
-void rhd_2164_obj::convert_all(uint16_t responses[64]) {}
+void rhd_2164_obj::convert_all(uint16_t responses[64]) {
+  uint16_t command_list[CONVERT_ALL_RHD_COMMAND_LEN];
+  uint32_t response_list[CONVERT_ALL_RHD_COMMAND_LEN];
 
-void rhd_2164_obj::convert_selected(uint64_t channel_select,
-                                    uint16_t *responses) {}
+  // We get 64 channels from 32 commands due to the DDR nature, RHD A contains
+  // channel x, and RHD B contains channel x + 32
+  for (uint8_t x = 0; x < 32; x++) {
+    command_list[x] = RHD_CONVERT_COMMAND_HEX;
+    command_list[x] |= x << 8; // 00CC CCCC  0000 0000
+  }
+
+  // Two filler commands to get all 32 transactions in 1 array
+  command_list[CONVERT_ALL_RHD_COMMAND_LEN - 2] = RHD_DO_SOMETHING_HEX;
+  command_list[CONVERT_ALL_RHD_COMMAND_LEN - 1] = RHD_DO_SOMETHING_HEX;
+
+  ddr_transact(this->ddr, command_list, response_list,
+               CONVERT_ALL_RHD_COMMAND_LEN);
+
+  // The first 2 commands the response list are going to be garbage due to the 2
+  // command pipeline, so skip them
+  for (uint8_t x = 2; x < CONVERT_ALL_RHD_COMMAND_LEN; x++) {
+    // See above notes for these array offset equations
+    responses[(x - 2)] = extract_rhd_a_bits(response_list[x]);
+    responses[(x - 2) + 32] = extract_rhd_b_bits(response_list[x]);
+  }
+}
+
+// void rhd_2164_obj::convert_selected(uint8_t *channel_select,
+//                                     uint16_t *responses,
+//                                     uint8_t channel_count) {
+//   uint16_t command_list[channel_count] = {RHD_CONVERT_COMMAND_HEX};
+// }
 
 void rhd_2164_obj::read_reg(uint8_t reg, uint16_t *rhd_a_response,
                             uint16_t *rhd_b_response) {

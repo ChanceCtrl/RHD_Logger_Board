@@ -22,7 +22,8 @@ public:
 
   void convert_all(uint16_t responses[64]);
 
-  void convert_selected(uint64_t channel_select, uint16_t *responses);
+  void convert_selected(uint8_t *channel_select, uint16_t *responses,
+                        uint8_t channel_count);
 
   void read_reg(uint8_t reg, uint16_t *rhd_a_response,
                 uint16_t *rhd_b_response);
