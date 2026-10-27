@@ -12,6 +12,8 @@ add_executable(${PROJECT_NAME}
   src/main.cpp
   src/ddr_spi.cpp
   src/rhd_helpers.cpp
+  src/server.cpp
+  src/fb_helpers.cpp
 )
 
 pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/src/ddr_spi.pio)

@@ -1,23 +1,24 @@
-/**
- * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
- *
- * SPDX-License-Identifier: BSD-3-Clause
- */
+#include "config.h"
 
+// For things like printf, sleep, etc.
+#include <cstdio>
+#include <hardware/timer.h>
+#include <pico/assert.h>
+#include <pico/cyw43_arch.h>
+#include <pico/stdio.h>
 #include <pico/stdio_usb.h>
+#include <pico/stdlib.h>
 #include <pico/time.h>
-#include <stdio.h>
 
+// Everything for the DDR spi stuff
 #include "ddr_spi.h"
 #include "ddr_spi.pio.h"
-#include "hardware/clocks.h"
-#include "hardware/pio.h"
 #include "rhd_helpers.h"
+#include <hardware/pio.h>
 
-#define DDR_MOSI_GPIO 19
-#define DDR_SCLK_GPIO 18
-#define DDR_CS_GPIO 17
-#define DDR_MISO_GPIO 16
+// Our packet yeeting utiliti
+#include "fb_helpers.h"
+#include "server.h"
 
 int main() {
   stdio_usb_init();
@@ -52,12 +53,32 @@ int main() {
   rhd_2164_obj_t rhd = rhd_2164_obj(&fella);
   rhd.calibrate_rhd();
 
+  printf("RHD started, opening AP....\n");
+  int server_result = init_server();
+  hard_assert(server_result == 0);
+
   uint16_t in_all[64];
 
   while (true) {
+    // Get the data
+    uint64_t time_start = time_us_64();
     rhd.convert_all(in_all);
-    printf("%u\n", in_all[46]);
+    uint64_t time_end = time_us_64();
 
-    sleep_ms(1);
+    // Package it all up neatly
+    // rhd_packet_common_t packet =
+    //     make_conv_all_packet(time_start, in_all, time_end);
+
+    rhd_packet_common_t packet;
+    packet.packet_buffer = in_all;
+    packet.packet_size = 64;
+
+    // Throw it out
+    send_packet(packet);
+
+    printf("SOL\n");
+
+    // printf("mrow %u\n", (time_us_64() - time_end));
+    sleep_ms(1000);
   }
 }

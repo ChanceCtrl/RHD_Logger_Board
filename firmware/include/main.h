@@ -7,3 +7,6 @@
 #include "stdio.h"
 #include <pico/stdio.h>
 #include <pico/stdio_usb.h>
+
+#include "fb_helpers.h"
+#include "server.h"
