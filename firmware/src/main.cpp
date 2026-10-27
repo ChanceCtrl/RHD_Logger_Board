@@ -76,6 +76,11 @@ int main() {
     send_packet(packet);
 
     // printf("mrow %u\n", (time_us_64() - time_end));
-    sleep_us(1000);
+    int64_t time_delta = 1000 - (time_us_64() - time_end);
+    if (time_delta > 0)
+      sleep_us(time_delta);
+    else {
+      printf("Took %ius too long", time_delta);
+    }
   }
 }
