@@ -90,4 +90,6 @@ rhd_packet_common_t make_conv_all_packet(uint64_t timestamp_start_us,
       flatcc_builder_get_direct_buffer(&B, &joe_packet.packet_size);
 
   flatcc_builder_clear(&B);
+
+  return joe_packet;
 }

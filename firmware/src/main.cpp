@@ -57,6 +57,9 @@ int main() {
   int server_result = init_server();
   hard_assert(server_result == 0);
 
+  printf("Everything started, entering main loop in 1 sec...\n");
+  sleep_ms(1000);
+
   uint16_t in_all[64];
 
   while (true) {
@@ -66,19 +69,13 @@ int main() {
     uint64_t time_end = time_us_64();
 
     // Package it all up neatly
-    // rhd_packet_common_t packet =
-    //     make_conv_all_packet(time_start, in_all, time_end);
-
-    rhd_packet_common_t packet;
-    packet.packet_buffer = in_all;
-    packet.packet_size = 64;
+    rhd_packet_common_t packet =
+        make_conv_all_packet(time_start, in_all, time_end);
 
     // Throw it out
     send_packet(packet);
 
-    printf("SOL\n");
-
     // printf("mrow %u\n", (time_us_64() - time_end));
-    sleep_ms(1000);
+    sleep_us(1000);
   }
 }
